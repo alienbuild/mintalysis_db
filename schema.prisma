@@ -1220,6 +1220,7 @@ enum Language {
   CN
   IN
   IT
+  JP
 }
 
 enum MarketProductStatus {
