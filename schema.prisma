@@ -1047,6 +1047,23 @@ model tmp_veve_transactions {
   transactions        tmp_veve_tokens_collectibles? @relation(fields: [connector_id], references: [connector_id])
 }
 
+model tmp_veve_comic_transactions {
+  id                  Int                           @id @default(autoincrement())
+  transaction_id      String?
+    transfer_id         String?
+    connector_id        String?
+    createdAt           DateTime?
+    status              String?
+    type                String?
+    fee_rate            Float?
+    fee_gem             Float?
+    amount_usd          Float?
+    buyer_id            String?
+    buyer_username      String?
+    seller_id           String?
+    seller_username     String?
+}
+
 model tmp_cursors {
   id             Int      @id @default(autoincrement())
   collectible_id String
