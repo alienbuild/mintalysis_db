@@ -1052,7 +1052,7 @@ model tmp_veve_transactions {
 model tmp_veve_tokens_comics {
   id                          Int                           @id @default(autoincrement())
   connector_id                String?                       @unique
-  blockchain_id               String?                       @unique
+  blockchain_id               String?
   owner_id                    String?
   owner_username              String?
   comic_id                    String?
