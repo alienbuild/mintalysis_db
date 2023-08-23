@@ -882,14 +882,14 @@ model veve_licensors {
 }
 
 model veve_mcp {
-  id                     Int       @id @default(autoincrement())
-  wallet_id              String?   @unique
-  pending_daily_mcp_pts  Decimal?  @db.Decimal(10, 2)
-  mcp_rank               String?
-  mcp_level              String?
-  total_mcp              Decimal   @db.Decimal(10, 2)
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime?
+  id                    Int       @id @default(autoincrement())
+  wallet_id             String?   @unique
+  pending_daily_mcp_pts Decimal?  @db.Decimal(10, 2)
+  mcp_rank              String?
+  mcp_level             String?
+  total_mcp             Decimal   @db.Decimal(10, 2)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime?
 
   @@index([wallet_id])
 }
@@ -905,12 +905,12 @@ model veve_mcp_daily {
 }
 
 model veve_mcp_completed_sets {
-  id              Int       @id @default(autoincrement())
-  wallet_id       String?   @unique
-  series_id       String?
-  set_count       Int?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime?
+  id        Int       @id @default(autoincrement())
+  wallet_id String?   @unique
+  series_id String?
+  set_count Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
 
   @@index([wallet_id, series_id])
 }
@@ -1115,13 +1115,12 @@ model veve_wallets {
   veve_username       String?       @unique
   veve_id             String?
   active              Boolean?      @default(true)
-  KYC                 Boolean?      @default(false)
   merged_to           String?
   KYC                 Boolean?      @default(false)
   tagsId              Int?
   first_activity_date DateTime?
   last_activity_date  DateTime?
-  token_count         Int? 
+  token_count         Int?
   wallet_tags         wallet_tags?  @relation(fields: [tagsId], references: [id])
   //  profile             profile?      @relation(fields: [user_id], references: [user_id])
   veve_tokens         veve_tokens[]
@@ -1131,7 +1130,7 @@ model veve_wallets {
 }
 
 model veve_watchlist {
-  id                String             @id
+  id                String             @id @default(uuid())
   user_id           String
   collectible_id    String?
   unique_cover_id   String?
