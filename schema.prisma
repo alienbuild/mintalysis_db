@@ -176,8 +176,10 @@ model hro_transfers {
 
 model imx_stats {
   project_id                   String  @unique
+  mint_count                   Int
   token_count                  Int
   wallet_count                 Int
+  transfer_count               Int
   transaction_count            Int
   unique_owners_count          Int
   max_mints_timestamp          String?
@@ -185,6 +187,18 @@ model imx_stats {
   last_updated_mint_txn_id     Int?
   last_updated_transfer_txn_id Int?
   veve_metadata_missing_count  Int?
+  createdAt                    DateTime  @default(now())
+  updatedAt                    DateTime?
+}
+
+model veve_leaderboard {
+  id                Int  @id @default(autoincrement())
+  leader_type       String // OMI, Series, Brand, Collectible etc
+  wallet            String
+  count             Int
+  datetime          String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -882,21 +896,21 @@ model veve_licensors {
 }
 
 model veve_mcp {
-  id                    Int       @id @default(autoincrement())
-  wallet_id             String?   @unique
-  pending_daily_mcp_pts Decimal?  @db.Decimal(10, 2)
-  mcp_rank              String?
-  mcp_level             String?
-  total_mcp             Decimal   @db.Decimal(10, 2)
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime?
+  id                     Int       @id @default(autoincrement())
+  wallet_id              String?   @unique
+  pending_daily_mcp_pts  Decimal?  @db.Decimal(10, 2)
+  mcp_rank               String?
+  mcp_level              String?
+  total_mcp              Decimal   @db.Decimal(10, 2)
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime?
 
   @@index([wallet_id])
 }
 
 model veve_mcp_daily {
   id        Int       @id @default(autoincrement())
-  wallet_id String?   @unique
+  wallet_id String?
   mcp_pts   Decimal?  @db.Decimal(10, 2)
   createdAt DateTime  @default(now())
   updatedAt DateTime?
@@ -905,12 +919,12 @@ model veve_mcp_daily {
 }
 
 model veve_mcp_completed_sets {
-  id        Int       @id @default(autoincrement())
-  wallet_id String?   @unique
-  series_id String?
-  set_count Int?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
+  id              Int       @id @default(autoincrement())
+  wallet_id       String?
+  series_id       String?
+  set_count       Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime?
 
   @@index([wallet_id, series_id])
 }
@@ -943,7 +957,6 @@ model veve_series {
   season                                     Int?
   is_blindbox                                Boolean?            @default(false)
   nbr_of_items                               Int?
-  mcp_set_points                             Int?
   theme_logo_image_url                       String?
   theme_logo_image_thumbnail_url             String?
   theme_logo_image_low_resolution_url        String?
@@ -1114,14 +1127,16 @@ model veve_wallets {
   updatedAt           DateTime?
   veve_username       String?       @unique
   veve_id             String?
-  active              Boolean?      @default(true)
+  KYC1                Boolean?      @default(true) // Active 8/1/2022 and later
+  KYC2                Boolean?      @default(false) // Active 6/1/2023 and later when KYC moved to seller only
   merged_to           String?
-  KYC                 Boolean?      @default(false)
   tagsId              Int?
   first_activity_date DateTime?
   last_activity_date  DateTime?
   token_count         Int?
   wallet_tags         wallet_tags?  @relation(fields: [tagsId], references: [id])
+  lgcy_veve_username  String?
+  lgcy_veve_id        String?
   //  profile             profile?      @relation(fields: [user_id], references: [user_id])
   veve_tokens         veve_tokens[]
 
@@ -1130,7 +1145,7 @@ model veve_wallets {
 }
 
 model veve_watchlist {
-  id                String             @id @default(uuid())
+  id                String             @id
   user_id           String
   collectible_id    String?
   unique_cover_id   String?
@@ -1217,7 +1232,6 @@ model marketplace_category {
 
 model veve_metadata_missing {
   token_id  Int     @id
-  to_wallet String? @db.VarChar(255)
 }
 
 model article {
