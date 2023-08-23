@@ -175,7 +175,7 @@ model hro_transfers {
 }
 
 model imx_stats {
-  project_id                   String  @unique
+  project_id                   String    @unique
   mint_count                   Int
   token_count                  Int
   wallet_count                 Int
@@ -192,11 +192,11 @@ model imx_stats {
 }
 
 model veve_leaderboard {
-  id                Int  @id @default(autoincrement())
-  leader_type       String // OMI, Series, Brand, Collectible etc
-  wallet            String
-  count             Int
-  datetime          String?
+  id          Int       @id @default(autoincrement())
+  leader_type String // OMI, Series, Brand, Collectible etc
+  wallet      String
+  count       Int
+  datetime    String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
 }
@@ -660,9 +660,9 @@ model mcfarlane_transfers {
 }
 
 model veve_brands {
-  brand_id                                   String        @id
+  brand_id                                   String              @id
   name                                       String?
-  description                                String?       @db.Text
+  description                                String?             @db.Text
   theme_logo_image_url                       String?
   theme_logo_image_thumbnail_url             String?
   theme_logo_image_low_resolution_url        String?
@@ -699,10 +699,11 @@ model veve_brands {
   square_image_high_resolution_url           String?
   square_image_direction                     String?
   licensor_id                                String
-  slug                                       String?       @unique
-  market_cap                                 Decimal?      @db.Decimal(10, 2)
+  slug                                       String?             @unique
+  market_cap                                 Decimal?            @db.Decimal(10, 2)
   sort                                       Int?
   veve_tokens                                veve_tokens[]
+  veve_collectibles                          veve_collectibles[]
 
   @@index([licensor_id], map: "brands_licensor_id_fkey")
 }
@@ -719,6 +720,8 @@ model veve_collectibles {
   mcp_low_ed_limit                     Int?
   createdAt                            DateTime                         @default(now())
   updatedAt                            DateTime?
+  mcp_base_value                       Int?
+  mcp_rarity_value                     Decimal?                         @db.Decimal(10, 2)
   background_image_direction           String?
   background_image_full_resolution_url String?
   background_image_high_resolution_url String?
@@ -738,9 +741,6 @@ model veve_collectibles {
   total_issued                         Int?
   total_likes                          Int?
   variety                              String?
-  brand_id                             String?
-  licensor_id                          String?
-  series_id                            String?
   drop_method                          String?
   is_free                              Boolean?                         @default(false)
   total_store_allocation               Int?
@@ -758,12 +758,17 @@ model veve_collectibles {
   all_time_change                      Decimal?                         @db.Decimal(10, 2)
   slug                                 String?                          @unique
   unique_holders                       BigInt?
-  veve_series                          veve_series?                     @relation(fields: [series_id], references: [series_id])
   communities                          communities[]
   veve_watchlist                       veve_watchlist[]
   veve_tokens                          veve_tokens[]
   tmp_veve_tokens_collectibles         tmp_veve_tokens_collectibles[]
   translations                         veve_collectibles_translations[]
+  brand_id                             String?
+  brand                                veve_brands?                     @relation(fields: [brand_id], references: [brand_id])
+  series_id                            String?
+  series                               veve_series?                     @relation(fields: [series_id], references: [series_id])
+  licensor_id                          String?
+  licensor                             veve_licensors?                  @relation(fields: [licensor_id], references: [licensor_id])
 
   @@index([brand_id], map: "collectibles_brand_id_fkey")
   @@index([licensor_id], map: "collectibles_licensor_id_fkey")
@@ -795,6 +800,7 @@ model veve_comics {
   store_price               Decimal?                   @db.Decimal(10, 2)
   publisher_id              String?
   market_fee                Decimal?                   @db.Decimal(10, 3)
+  mcp_rarity_value          Decimal?                   @db.Decimal(10, 2)
   mcp_low_ed_limit          Int?
   createdAt                 DateTime                   @default(now())
   updatedAt                 DateTime
@@ -851,9 +857,9 @@ model veve_comics_translations {
 }
 
 model veve_licensors {
-  licensor_id                                String        @id
+  licensor_id                                String              @id
   name                                       String?
-  description                                String?       @db.Text
+  description                                String?             @db.Text
   landscape_image_direction                  String?
   landscape_image_full_resolution_url        String?
   landscape_image_high_resolution_url        String?
@@ -861,7 +867,7 @@ model veve_licensors {
   landscape_image_med_resolution_url         String?
   landscape_image_thumbnail_url              String?
   landscape_image_url                        String?
-  market_fee                                 Decimal?      @db.Decimal(10, 3)
+  market_fee                                 Decimal?            @db.Decimal(10, 3)
   square_image_direction                     String?
   square_image_full_resolution_url           String?
   square_image_high_resolution_url           String?
@@ -890,20 +896,21 @@ model veve_licensors {
   theme_logo_image_med_resolution_url        String?
   theme_logo_image_thumbnail_url             String?
   theme_logo_image_url                       String?
-  slug                                       String?       @unique
-  market_cap                                 Decimal?      @db.Decimal(10, 2)
+  slug                                       String?             @unique
+  market_cap                                 Decimal?            @db.Decimal(10, 2)
   veve_tokens                                veve_tokens[]
+  veve_collectibles                          veve_collectibles[]
 }
 
 model veve_mcp {
-  id                     Int       @id @default(autoincrement())
-  wallet_id              String?   @unique
-  pending_daily_mcp_pts  Decimal?  @db.Decimal(10, 2)
-  mcp_rank               String?
-  mcp_level              String?
-  total_mcp              Decimal   @db.Decimal(10, 2)
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime?
+  id                    Int       @id @default(autoincrement())
+  wallet_id             String?   @unique
+  pending_daily_mcp_pts Decimal?  @db.Decimal(10, 2)
+  mcp_rank              String?
+  mcp_level             String?
+  total_mcp             Decimal   @db.Decimal(10, 2)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime?
 
   @@index([wallet_id])
 }
@@ -919,12 +926,12 @@ model veve_mcp_daily {
 }
 
 model veve_mcp_completed_sets {
-  id              Int       @id @default(autoincrement())
-  wallet_id       String?
-  series_id       String?
-  set_count       Int?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime?
+  id        Int       @id @default(autoincrement())
+  wallet_id String?
+  series_id String?
+  set_count Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
 
   @@index([wallet_id, series_id])
 }
@@ -1231,7 +1238,7 @@ model marketplace_category {
 }
 
 model veve_metadata_missing {
-  token_id  Int     @id
+  token_id Int @id
 }
 
 model article {
