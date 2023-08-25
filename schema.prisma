@@ -1287,6 +1287,52 @@ model tmp_medium_article_html {
   image         String?
 }
 
+model error_log {
+  id           Int      @id @default(autoincrement())
+  type         String?
+  function     String?
+  missing_data Boolean?
+  table_name   String?
+  error_msg    String?
+}
+
+model imx_deposits {
+  txn_id             Int       @id
+  status             String?
+  wallet_id          String?
+  token_type         String?
+  token_id           String?
+  id                 String?
+  token_address      String?
+  decimals           Int?
+  quantity           String?
+  quantity_with_fees String?
+  timestamp          String?   @db.Text
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime?
+
+  @@index([wallet_id])
+}
+
+model imx_trades {
+  txn_id          Int       @id
+  status          String?
+  a_order_id      Int?
+  a_token_type    String?
+  a_sold_quantity String?
+  token_id        Int?
+  b_order_id      Int?
+  b_token_type    String?
+  b_token_id      Int?
+  b_token_address String?
+  b_sold          Int?
+  timestamp       String?   @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime?
+
+  @@index([txn_id])
+}
+
 enum Language {
   EN
   ES
