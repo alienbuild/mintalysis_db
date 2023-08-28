@@ -913,7 +913,7 @@ model veve_mcp {
   total_mcp             Decimal  @db.Decimal(10, 2)
   omi_balance           Decimal? @db.Decimal(20, 6)
   createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  updatedAt             DateTime? @updatedAt
 
   @@index([wallet_id])
 }
@@ -923,7 +923,7 @@ model veve_mcp_daily {
   wallet_id     String?
   daily_mcp_pts Json?
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime? @updatedAt
 
   @@index([wallet_id])
 }
@@ -935,7 +935,7 @@ model veve_mcp_completed_sets {
   set_count Int?
   timestamp DateTime?
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime?  @updatedAt
 
   @@index([wallet_id, series_id])
 }
@@ -951,7 +951,8 @@ model veve_mcp_ranks {
 }
 
 model veve_mcp_staging {
-  token_id           Int      @id
+  transaction_id     Int      @id
+  token_id           Int
   from_wallet        String
   to_wallet          String
   timestamp          DateTime
@@ -969,9 +970,8 @@ model veve_mcp_staging {
   coll_dup_value     Decimal? @db.Decimal(10, 2)
   coll_rarity_value  Decimal? @db.Decimal(10, 2)
   coll_low_ed_limit  Int?
-
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
 
   @@index([token_id])
 }
@@ -981,7 +981,7 @@ model veve_mcp_holdings {
   wallet_id String
   timestamp DateTime
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
 }
 
 model veve_mints {
@@ -1185,8 +1185,8 @@ model veve_wallets {
   updatedAt           DateTime?
   veve_username       String?            @unique
   veve_id             String?
-  KYC1                Boolean?           @default(false) // Active 8/1/2022 and later & sold items from 6/1/2023 and later
-  KYC2                Boolean?           @default(false) // Purchased and minted items from 6/1/2023 and later only
+  KYC1                Boolean?           @default(false) // FULL KYC - Active 8/1/2022 and later & sold items from 6/1/2023 and later
+  KYC2                Boolean?           @default(false) // NOT FULL KYC - Purchased and minted items from 6/1/2023 and later only
   merged_to           String?
   tagsId              Int?
   first_activity_date DateTime?
@@ -1360,13 +1360,13 @@ model imx_deposits {
   quantity_with_fees String?
   timestamp          String?  @db.Text
   createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  updatedAt          DateTime? @updatedAt
 
   @@index([wallet_id])
 }
 
 model imx_trades {
-  txn_id          Int      @id
+  txn_id          Int       @id
   status          String?
   a_order_id      Int?
   a_token_type    String?
@@ -1377,16 +1377,16 @@ model imx_trades {
   b_token_id      Int?
   b_token_address String?
   b_sold          Int?
-  timestamp       String?  @db.Text
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  timestamp       String?   @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
 
   @@index([txn_id])
 }
 
 model imx_orders {
   order_id             Int       @id
-  statuS               String?
+  status               String?
   wallet_id            String?
   type                 String? // Sell type or Buy type
   token_id             String?
@@ -1417,8 +1417,8 @@ model imx_orders {
   taker_fees_decimals      Int?
   taker_fees_symbol        String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@index([order_id])
 }
@@ -1438,8 +1438,8 @@ model imx_withdrawals {
   token_qty_with_fees String?
   timestamp           DateTime?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@index([txn_id])
 }
