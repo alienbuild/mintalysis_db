@@ -175,7 +175,7 @@ model hro_transfers {
 }
 
 model imx_stats {
-  project_id                   String    @unique
+  project_id                   String   @unique
   mint_count                   Int
   token_count                  Int
   wallet_count                 Int
@@ -187,20 +187,20 @@ model imx_stats {
   last_updated_mint_txn_id     Int?
   last_updated_transfer_txn_id Int?
   veve_metadata_missing_count  Int?
-  createdAt                    DateTime  @default(now())
-  updatedAt                    DateTime  @updatedAt
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
 }
 
 model veve_leaderboard {
-  id              Int           @id @default(autoincrement())
-  leader_type     String // OMI, Series, Brand, Collectible etc
-  tag             String?
-  wallet_id       String
-  wallet          veve_wallets? @relation(fields: [wallet_id], references: [id])
-  count           Int
-  datetime        String?
-  createdAt       DateTime      @default(now())
-  last_updated    DateTime?     @db.DateTime(0)
+  id           Int           @id @default(autoincrement())
+  leader_type  String // OMI, Series, Brand, Collectible etc
+  tag          String?
+  wallet_id    String
+  wallet       veve_wallets? @relation(fields: [wallet_id], references: [id])
+  count        Int
+  datetime     String?
+  createdAt    DateTime      @default(now())
+  last_updated DateTime?     @db.DateTime(0)
 }
 
 model login_history {
@@ -284,37 +284,37 @@ model notifications {
 }
 
 model odb_tokens {
-  token_id        BigInt    @id
-  comic_image_url_id String? @db.VarChar(50)
-  unique_cover_id String?   @db.VarChar(255)
-  type            String?   @db.VarChar(255)
-  collectible_id  String?   @db.VarChar(255)
-  name            String?   @db.VarChar(255)
-  description     String?   @db.Text
-  rarity          String?   @db.VarChar(255)
-  edition_type    String?   @db.VarChar(10)
-  edition         Int?
-  total_editions  Int?
-  mint_date       DateTime
-  drop_date       DateTime? @db.DateTime(0)
-  comic_number    Int?
-  image_url       String?   @db.Text
-  start_year      Int?
-  cover_artists   String?   @db.Text
-  artists         String?   @db.Text
-  writers         String?   @db.Text
-  characters      String?   @db.Text
-  publisher_name  String?   @db.Text
-  series_name     String?   @db.Text
-  brand_name      String?   @db.Text
-  licensor_name   String?   @db.Text
-  last_updated    DateTime? @db.DateTime(0)
-  created_at      DateTime? @db.DateTime(0)
-  to_process      Int?      @db.TinyInt
-  licensor_id     String?   @db.VarChar(255)
-  brand_id        String?   @db.VarChar(255)
-  series_id       String?   @db.VarChar(255)
-  wallet_id       String?   @db.VarChar(255)
+  token_id           BigInt    @id
+  comic_image_url_id String?   @db.VarChar(50)
+  unique_cover_id    String?   @db.VarChar(255)
+  type               String?   @db.VarChar(255)
+  collectible_id     String?   @db.VarChar(255)
+  name               String?   @db.VarChar(255)
+  description        String?   @db.Text
+  rarity             String?   @db.VarChar(255)
+  edition_type       String?   @db.VarChar(10)
+  edition            Int?
+  total_editions     Int?
+  mint_date          DateTime
+  drop_date          DateTime? @db.DateTime(0)
+  comic_number       Int?
+  image_url          String?   @db.Text
+  start_year         Int?
+  cover_artists      String?   @db.Text
+  artists            String?   @db.Text
+  writers            String?   @db.Text
+  characters         String?   @db.Text
+  publisher_name     String?   @db.Text
+  series_name        String?   @db.Text
+  brand_name         String?   @db.Text
+  licensor_name      String?   @db.Text
+  last_updated       DateTime? @db.DateTime(0)
+  created_at         DateTime? @db.DateTime(0)
+  to_process         Int?      @db.TinyInt
+  licensor_id        String?   @db.VarChar(255)
+  brand_id           String?   @db.VarChar(255)
+  series_id          String?   @db.VarChar(255)
+  wallet_id          String?   @db.VarChar(255)
 
   @@index([edition], map: "edition")
   @@index([last_updated], map: "last_updated")
@@ -737,18 +737,6 @@ model veve_collectibles {
   drop_method                          String?
   is_free                              Boolean?                         @default(false)
   total_store_allocation               Int?
-  all_time_high                        Decimal?                         @db.Decimal(10, 2)
-  all_time_low                         Decimal?                         @db.Decimal(10, 2)
-  floor_price                          Decimal?                         @db.Decimal(10, 2)
-  market_cap                           Decimal?                         @db.Decimal(10, 2)
-  one_day_change                       Decimal?                         @db.Decimal(10, 2)
-  one_mo_change                        Decimal?                         @db.Decimal(10, 2)
-  one_wk_change                        Decimal?                         @db.Decimal(10, 2)
-  one_year_change                      Decimal?                         @db.Decimal(10, 2)
-  six_mo_change                        Decimal?                         @db.Decimal(10, 2)
-  three_mo_change                      Decimal?                         @db.Decimal(10, 2)
-  total_listings                       Int?
-  all_time_change                      Decimal?                         @db.Decimal(10, 2)
   slug                                 String?                          @unique
   unique_holders                       BigInt?
   communities                          communities[]
@@ -762,11 +750,31 @@ model veve_collectibles {
   series                               veve_series?                     @relation(fields: [series_id], references: [series_id])
   licensor_id                          String?
   licensor                             veve_licensors?                  @relation(fields: [licensor_id], references: [licensor_id])
+  metrics                              veve_collectibles_metrics[]
 
   @@index([brand_id], map: "collectibles_brand_id_fkey")
   @@index([licensor_id], map: "collectibles_licensor_id_fkey")
   @@index([name], map: "collectibles_name_idx")
   @@index([series_id], map: "collectibles_series_id_fkey")
+}
+
+model veve_collectibles_metrics {
+  collectible_id     String            @id
+  all_time_high      Decimal?          @db.Decimal(10, 2)
+  all_time_low       Decimal?          @db.Decimal(10, 2)
+  floor_price        Decimal?          @db.Decimal(10, 2)
+  market_cap         Decimal?          @db.Decimal(10, 2)
+  total_listings     Int?
+  volume             Decimal?          @db.Decimal(10, 2)
+  circulating_supply Decimal?          @db.Decimal(10, 2)
+  one_day_change     Decimal?          @db.Decimal(10, 2)
+  one_mo_change      Decimal?          @db.Decimal(10, 2)
+  one_wk_change      Decimal?          @db.Decimal(10, 2)
+  one_year_change    Decimal?          @db.Decimal(10, 2)
+  six_mo_change      Decimal?          @db.Decimal(10, 2)
+  three_mo_change    Decimal?          @db.Decimal(10, 2)
+  all_time_change    Decimal?          @db.Decimal(10, 2)
+  collectible        veve_collectibles @relation(fields: [collectible_id], references: [collectible_id])
 }
 
 model veve_collectibles_translations {
@@ -897,25 +905,25 @@ model veve_licensors {
 }
 
 model veve_mcp {
-  id                    Int       @id @default(autoincrement())
-  wallet_id             String?   @unique
-  pending_daily_mcp_pts Decimal?  @db.Decimal(10, 2)
+  id                    Int      @id @default(autoincrement())
+  wallet_id             String?  @unique
+  pending_daily_mcp_pts Decimal? @db.Decimal(10, 2)
   mcp_rank              String?
   mcp_level             String?
-  total_mcp             Decimal   @db.Decimal(10, 2)
-  omi_balance           Decimal?  @db.Decimal(20, 6)
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+  total_mcp             Decimal  @db.Decimal(10, 2)
+  omi_balance           Decimal? @db.Decimal(20, 6)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
   @@index([wallet_id])
 }
 
 model veve_mcp_daily {
-  id              Int       @id @default(autoincrement())
-  wallet_id       String?
-  daily_mcp_pts   Json?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id            Int      @id @default(autoincrement())
+  wallet_id     String?
+  daily_mcp_pts Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@index([wallet_id])
 }
@@ -943,37 +951,37 @@ model veve_mcp_ranks {
 }
 
 model veve_mcp_staging {
-  token_id            Int       @id
-  from_wallet         String
-  to_wallet           String
-  timestamp           DateTime
-  type                String?
-  edition             Int?
-  rarity              String?
-  collectible_id      String?
-  unique_cover_id     String?
-  comic_image_url_id  String?
-  series_id           String?
-  nbr_of_items        Int?
-  comic_low_ed_limit  Int?
-  comic_rarity_value  Decimal?  @db.Decimal(10, 2)
-  coll_base_value     Int?
-  coll_dup_value      Decimal?  @db.Decimal(10, 2)
-  coll_rarity_value   Decimal?  @db.Decimal(10, 2)
-  coll_low_ed_limit   Int?
+  token_id           Int      @id
+  from_wallet        String
+  to_wallet          String
+  timestamp          DateTime
+  type               String?
+  edition            Int?
+  rarity             String?
+  collectible_id     String?
+  unique_cover_id    String?
+  comic_image_url_id String?
+  series_id          String?
+  nbr_of_items       Int?
+  comic_low_ed_limit Int?
+  comic_rarity_value Decimal? @db.Decimal(10, 2)
+  coll_base_value    Int?
+  coll_dup_value     Decimal? @db.Decimal(10, 2)
+  coll_rarity_value  Decimal? @db.Decimal(10, 2)
+  coll_low_ed_limit  Int?
 
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([token_id])
 }
 
 model veve_mcp_holdings {
-  token_id    Int       @id @unique
-  wallet_id   String
-  timestamp   DateTime
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  token_id  Int      @id @unique
+  wallet_id String
+  timestamp DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model veve_mints {
@@ -1052,26 +1060,26 @@ model veve_series {
 }
 
 model veve_tokens {
-  token_id          Int                 @id
-  edition           Int?
-  mint_date         DateTime?
-  rarity            String?             @db.Text
-  collectible_id    String?
-  comic_image_url_id String?            @db.VarChar(50)
-  unique_cover_id   String?
-  type              String?             @db.Text
-  last_updated      DateTime?           @default(now()) @db.Timestamp(0)
-  brand_id          String?
-  licensor_id       String?
-  series_id         String?
-  wallet_id         String?
-  to_process        Boolean?
-  element_id        String?
-  veve_brands       veve_brands?        @relation(fields: [brand_id], references: [brand_id])
-  veve_wallets      veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
-  veve_licensors    veve_licensors?     @relation(fields: [licensor_id], references: [licensor_id])
-  veve_series       veve_series?        @relation(fields: [series_id], references: [series_id])
-  veve_collectibles veve_collectibles[]
+  token_id           Int                 @id
+  edition            Int?
+  mint_date          DateTime?
+  rarity             String?             @db.Text
+  collectible_id     String?
+  comic_image_url_id String?             @db.VarChar(50)
+  unique_cover_id    String?
+  type               String?             @db.Text
+  last_updated       DateTime?           @default(now()) @db.Timestamp(0)
+  brand_id           String?
+  licensor_id        String?
+  series_id          String?
+  wallet_id          String?
+  to_process         Boolean?
+  element_id         String?
+  veve_brands        veve_brands?        @relation(fields: [brand_id], references: [brand_id])
+  veve_wallets       veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
+  veve_licensors     veve_licensors?     @relation(fields: [licensor_id], references: [licensor_id])
+  veve_series        veve_series?        @relation(fields: [series_id], references: [series_id])
+  veve_collectibles  veve_collectibles[]
 
   @@index([brand_id], map: "veve_tokens_brand_id_fkey")
   @@index([licensor_id], map: "veve_tokens_licensor_id_fkey")
@@ -1340,7 +1348,7 @@ model error_log {
 }
 
 model imx_deposits {
-  txn_id             Int       @id
+  txn_id             Int      @id
   status             String?
   wallet_id          String?
   token_type         String?
@@ -1350,15 +1358,15 @@ model imx_deposits {
   decimals           Int?
   quantity           String?
   quantity_with_fees String?
-  timestamp          String?   @db.Text
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  timestamp          String?  @db.Text
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   @@index([wallet_id])
 }
 
 model imx_trades {
-  txn_id          Int       @id
+  txn_id          Int      @id
   status          String?
   a_order_id      Int?
   a_token_type    String?
@@ -1369,69 +1377,69 @@ model imx_trades {
   b_token_id      Int?
   b_token_address String?
   b_sold          Int?
-  timestamp       String?   @db.Text
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  timestamp       String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@index([txn_id])
 }
 
 model imx_orders {
-  order_id                  Int         @id
-  statuS                    String?
-  wallet_id                 String?
-  type                      String?      // Sell type or Buy type
-  token_id                  String?
-  token_address             String?
-  quantity                  String?
-  quantity_with_fees        String?
-  name                      String?      // Name from properties
-  image_url                 String?      // Image URL from properties
-  collection_name           String?      // Collection name from properties
-  collection_icon_url       String?      // Collection icon URL from properties
-  decimals                  Int?
-  amount_sold               Int?
-  expiration_timestamp      DateTime?
-  timestamp                 DateTime?
-  updated_timestamp         DateTime?
-  maker_taker_type          String
+  order_id             Int       @id
+  statuS               String?
+  wallet_id            String?
+  type                 String? // Sell type or Buy type
+  token_id             String?
+  token_address        String?
+  quantity             String?
+  quantity_with_fees   String?
+  name                 String? // Name from properties
+  image_url            String? // Image URL from properties
+  collection_name      String? // Collection name from properties
+  collection_icon_url  String? // Collection icon URL from properties
+  decimals             Int?
+  amount_sold          Int?
+  expiration_timestamp DateTime?
+  timestamp            DateTime?
+  updated_timestamp    DateTime?
+  maker_taker_type     String
 
   // Additional fields for fees
-  maker_fees_qty_with_fees      String?
-  maker_fees_token_type         String?
-  maker_fees_token_address      String?
-  maker_fees_decimals           Int?
-  maker_fees_symbol             String?
+  maker_fees_qty_with_fees String?
+  maker_fees_token_type    String?
+  maker_fees_token_address String?
+  maker_fees_decimals      Int?
+  maker_fees_symbol        String?
 
-  taker_fees_qty_with_fees      String?
-  taker_fees_token_type         String?
-  taker_fees_token_address      String?
-  taker_fees_decimals           Int?
-  taker_fees_symbol             String?
+  taker_fees_qty_with_fees String?
+  taker_fees_token_type    String?
+  taker_fees_token_address String?
+  taker_fees_decimals      Int?
+  taker_fees_symbol        String?
 
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([order_id])
 }
 
 model imx_withdrawals {
-  txn_id                 Int      @id
-  status                 String?
-  rollup_status          String?
-  withdrawn_to_wallet    Boolean?
-  sender                 String?
-  token_type             String?
-  token_id               String?
-  imx_id                 String?
-  token_address          String?
-  token_decimals         Int?
-  token_qty              String?
-  token_qty_with_fees    String?
-  timestamp              DateTime?
+  txn_id              Int       @id
+  status              String?
+  rollup_status       String?
+  withdrawn_to_wallet Boolean?
+  sender              String?
+  token_type          String?
+  token_id            String?
+  imx_id              String?
+  token_address       String?
+  token_decimals      Int?
+  token_qty           String?
+  token_qty_with_fees String?
+  timestamp           DateTime?
 
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([txn_id])
 }
