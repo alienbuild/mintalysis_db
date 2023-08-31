@@ -1060,16 +1060,16 @@ model veve_tokens {
   edition            Int?
   mcp_ed_bonus       Boolean?            @default(false)
   mint_date          DateTime?
-  rarity             String?             @db.VarChar(15)
-  collectible_id     String?             @db.VarChar(50)
+  rarity             String?             
+  collectible_id     String?             
   comic_image_url_id String?             @db.VarChar(50)
-  unique_cover_id    String?             @db.VarChar(50)
+  unique_cover_id    String?             
   type               String?             @db.Text
   last_updated       DateTime?           @default(now()) @db.Timestamp(0)
-  brand_id           String?             @db.VarChar(50)
-  licensor_id        String?             @db.VarChar(50)
-  series_id          String?             @db.VarChar(50)
-  wallet_id          String?             @db.VarChar(50)
+  brand_id           String?            
+  licensor_id        String?            
+  series_id          String?             
+  wallet_id          String?            
   to_process         Boolean?            
   element_id         String?
   veve_brands        veve_brands?        @relation(fields: [brand_id], references: [brand_id])
