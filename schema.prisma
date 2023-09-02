@@ -651,6 +651,7 @@ model mcfarlane_transfers {
 
 model veve_brands {
   brand_id                                   String              @id
+  brand_name                                 String?
   name                                       String?
   description                                String?             @db.Text
   theme_logo_image_url                       String?
@@ -858,6 +859,7 @@ model veve_comics_translations {
 
 model veve_licensors {
   licensor_id                                String              @id
+  licensor_name                              String?
   name                                       String?
   description                                String?             @db.Text
   landscape_image_direction                  String?
