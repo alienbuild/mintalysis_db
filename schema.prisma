@@ -314,14 +314,16 @@ model odb_tokens {
   licensor_name      String?   @db.Text
   last_updated       DateTime? @db.DateTime(0)
   created_at         DateTime? @db.DateTime(0)
-  to_process         Int?      @db.TinyInt
   licensor_id        String?   @db.VarChar(255)
   brand_id           String?   @db.VarChar(255)
   series_id          String?   @db.VarChar(255)
   wallet_id          String?   @db.VarChar(255)
   comic_image_url_id String?   @db.VarChar(50)
-  is_invalid         Int?      @db.TinyInt
-  is_visible         Int?      @db.TinyInt
+  mint_order         Int?
+  to_process         Boolean?  @default(false)
+  is_invalid         Boolean?  @default(false)
+  is_burned          Boolean?  @default(false)
+  mcp_ed_bonus       Boolean?  @default(false)
 
   @@index([token_id])
   @@index([comic_image_url_id])
@@ -994,14 +996,19 @@ model veve_mcp_holdings {
 }
 
 model veve_mints {
-  id        Int       @id
-  wallet_id String?
-  timestamp String?   @db.Text
-  token_id  Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime?
+  id              Int       @id
+  wallet_id       String?
+  timestamp       String?   @db.Text
+  token_id        Int
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime?
+  timestamp_new   DateTime? @db.DateTime(6)
+  is_burn         Boolean?    @default(false)
+  is_redemption   Boolean?    @default(false)
 
   @@index([wallet_id, token_id])
+  @@index([token_id])
+  @@index([wallet_id])
 }
 
 model veve_publishers {
@@ -1082,11 +1089,12 @@ model veve_tokens {
   series_id          String?
   wallet_id          String?
   element_id         String?
-  to_process         Boolean?
   comic_image_url_id String?             @db.VarChar(50)
+  mint_order         Int?
   mcp_ed_bonus       Boolean?            @default(false)
-  is_invalid         Int?                @db.TinyInt
-  is_visible         Int?                @db.TinyInt
+  to_process         Boolean?            @default(false)
+  is_invalid         Boolean?            @default(false)
+  is_burned          Boolean?            @default(false)
   veve_brands        veve_brands?        @relation(fields: [brand_id], references: [brand_id])
   veve_wallets       veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
   veve_licensors     veve_licensors?     @relation(fields: [licensor_id], references: [licensor_id])
@@ -1115,7 +1123,14 @@ model veve_transfers {
   entry_price     Float?
   break_even_new  Float?
   entry_price_new Float?
-
+  timestamp_new   DateTime?   @db.DateTime(6)
+  is_transfer     Boolean?    @default(false)
+  is_burn         Boolean?    @default(false)
+  is_craft        Boolean?    @default(false)
+  is_auction      Boolean?    @default(false)
+  is_redemption   Boolean?    @default(false)
+  is_mkt_action   Boolean?    @default(false)
+  is_mkt_fixed    Boolean?    @default(false)
   @@index([token_id, from_wallet, to_wallet])
 }
 
@@ -1527,6 +1542,17 @@ model users_posts_tag {
   @@unique([A, B], map: "_users_posts_tag_AB_unique")
   @@index([B], map: "_users_posts_tag_B_index")
   @@map("_users_posts_tag")
+}
+
+model tmp_wallet_owner {
+  wallet_id       String    @id
+  owner_id        String?   @db.VarChar(191)
+  owner_username  String?   @db.VarChar(191)
+}
+
+model tmp_tokens_wallets {
+  token_id        Int       @id
+  wallet_id       String?   @db.VarChar(191)
 }
 
 enum Language {
