@@ -1296,6 +1296,7 @@ model marketplace_product_images {
 model marketplace_product_offers {
   offer      Float
   product_id String
+  product    marketplace_product? @relation(fields: [product_id], references: [id])
   message    String?   @db.Text
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
