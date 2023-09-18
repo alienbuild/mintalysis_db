@@ -996,15 +996,15 @@ model veve_mcp_holdings {
 }
 
 model veve_mints {
-  id              Int       @id
-  wallet_id       String?
-  timestamp       String?   @db.Text
-  token_id        Int
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime?
-  timestamp_new   DateTime? @db.DateTime(6)
-  is_burn         Boolean?    @default(false)
-  is_redemption   Boolean?    @default(false)
+  id            Int       @id
+  wallet_id     String?
+  timestamp     String?   @db.Text
+  token_id      Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime?
+  timestamp_new DateTime? @db.DateTime(6)
+  is_burn       Boolean?  @default(false)
+  is_redemption Boolean?  @default(false)
 
   @@index([wallet_id, token_id])
   @@index([token_id])
@@ -1123,14 +1123,15 @@ model veve_transfers {
   entry_price     Float?
   break_even_new  Float?
   entry_price_new Float?
-  timestamp_new   DateTime?   @db.DateTime(6)
-  is_transfer     Boolean?    @default(false)
-  is_burn         Boolean?    @default(false)
-  is_craft        Boolean?    @default(false)
-  is_auction      Boolean?    @default(false)
-  is_redemption   Boolean?    @default(false)
-  is_mkt_action   Boolean?    @default(false)
-  is_mkt_fixed    Boolean?    @default(false)
+  timestamp_new   DateTime? @db.DateTime(6)
+  is_transfer     Boolean?  @default(false)
+  is_burn         Boolean?  @default(false)
+  is_craft        Boolean?  @default(false)
+  is_auction      Boolean?  @default(false)
+  is_redemption   Boolean?  @default(false)
+  is_mkt_action   Boolean?  @default(false)
+  is_mkt_fixed    Boolean?  @default(false)
+
   @@index([token_id, from_wallet, to_wallet])
 }
 
@@ -1210,27 +1211,37 @@ model tmp_cursors {
 }
 
 model veve_wallets {
-  id                  String             @id
-  user_id             String?            @unique
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime?
-  veve_username       String?            @unique
-  veve_id             String?
-  merged_to           String?
-  tagsId              Int?
-  first_activity_date DateTime?
-  last_activity_date  DateTime?
-  token_count         Int?
-  lgcy_veve_id        String?
-  lgcy_veve_username  String?
-  active              Boolean?           @default(false)
-  has_kyc             Boolean?           @default(false)
-  veve_leaderboard    veve_leaderboard[]
-  veve_tokens         veve_tokens[]
-  wallet_tags         wallet_tags?       @relation(fields: [tagsId], references: [id])
+  id                      String                    @id
+  user_id                 String?                   @unique
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime?
+  veve_username           String?                   @unique
+  veve_id                 String?
+  merged_to               String?
+  tagsId                  Int?
+  first_activity_date     DateTime?
+  last_activity_date      DateTime?
+  token_count             Int?
+  lgcy_veve_id            String?
+  lgcy_veve_username      String?
+  active                  Boolean?                  @default(false)
+  has_kyc                 Boolean?                  @default(false)
+  veve_leaderboard        veve_leaderboard[]
+  veve_tokens             veve_tokens[]
+  wallet_tags             wallet_tags?              @relation(fields: [tagsId], references: [id])
+  veve_wallets_valuations veve_wallets_valuations[]
 
   @@index([tagsId], map: "veve_wallets_tagsId_fkey")
   @@index([id, user_id, veve_username])
+}
+
+model veve_wallets_valuations {
+  id        Int                 @id @default(autoincrement())
+  wallet_id String
+  wallet    veve_wallets?       @relation(fields: [wallet_id], references: [id])
+  timestamp DateTime            @default(now())
+  valuation Decimal?            @db.Decimal(10, 2)
+  type      WalletValuationType @default(TOTAL)
 }
 
 model veve_watchlist {
@@ -1262,24 +1273,25 @@ model writers {
 }
 
 model marketplace_product {
-  id                    String                       @id @default(uuid())
-  title                 String
-  description           String?
-  age                   Int?
-  price                 Float
-  receipt_available     Boolean?                     @default(false)
-  warranty_available    Boolean?                     @default(false)
-  accessories_available Boolean?                     @default(false)
-  box_available         Boolean?                     @default(false)
-  user_id               String
-  status                MarketProductStatus          @default(PENDING)
-  createdAt             DateTime                     @default(now())
-  updatedAt             DateTime                     @updatedAt
-  condition             String?
-  type                  MarketProductType            @default(PHYSICAL_PRODUCT)
-  category              marketplace_category[]
-  seller                User                         @relation(fields: [user_id], references: [id])
-  images                marketplace_product_images[]
+  id                         String                       @id @default(uuid())
+  title                      String
+  description                String?
+  age                        Int?
+  price                      Float
+  receipt_available          Boolean?                     @default(false)
+  warranty_available         Boolean?                     @default(false)
+  accessories_available      Boolean?                     @default(false)
+  box_available              Boolean?                     @default(false)
+  user_id                    String
+  status                     MarketProductStatus          @default(PENDING)
+  createdAt                  DateTime                     @default(now())
+  updatedAt                  DateTime                     @updatedAt
+  condition                  String?
+  type                       MarketProductType            @default(PHYSICAL_PRODUCT)
+  category                   marketplace_category[]
+  seller                     User                         @relation(fields: [user_id], references: [id])
+  images                     marketplace_product_images[]
+  marketplace_product_offers marketplace_product_offers[]
 
   @@index([user_id], map: "marketplace_product_user_id_fkey")
 }
@@ -1297,10 +1309,10 @@ model marketplace_product_offers {
   offer      Float
   product_id String
   product    marketplace_product? @relation(fields: [product_id], references: [id])
-  message    String?   @db.Text
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  id         String    @id @default(uuid())
+  message    String?              @db.Text
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+  id         String               @id @default(uuid())
   buyer_id   String
   seller_id  String
   expires    DateTime?
@@ -1318,8 +1330,8 @@ model marketplace_category {
 }
 
 model veve_metadata_missing {
-  token_id    Int @id
-  wallet_id   String? 
+  token_id  Int     @id
+  wallet_id String?
 }
 
 model article {
@@ -1394,6 +1406,7 @@ model imx_deposits {
   timestamp          String?   @db.Text
   createdAt          DateTime  @default(now())
   updatedAt          DateTime? @updatedAt
+  timestamp_d        DateTime? @db.DateTime(6)
 
   @@index([wallet_id])
 }
@@ -1407,12 +1420,13 @@ model imx_trades {
   token_id        Int?
   b_order_id      Int?
   b_token_type    String?
-  b_token_id      Int?
+  b_token_id      String?   @db.VarChar(50)
   b_token_address String?
   b_sold          Int?
   timestamp       String?   @db.Text
   createdAt       DateTime  @default(now())
   updatedAt       DateTime? @updatedAt
+  a_token_address String?   @db.Text
 }
 
 model imx_orders {
@@ -1546,14 +1560,14 @@ model users_posts_tag {
 }
 
 model tmp_wallet_owner {
-  wallet_id       String    @id
-  owner_id        String?   @db.VarChar(191)
-  owner_username  String?   @db.VarChar(191)
+  wallet_id      String  @id
+  owner_id       String? @db.VarChar(191)
+  owner_username String? @db.VarChar(191)
 }
 
 model tmp_tokens_wallets {
-  token_id        Int       @id
-  wallet_id       String?   @db.VarChar(191)
+  token_id  Int     @id
+  wallet_id String? @db.VarChar(191)
 }
 
 enum Language {
@@ -1565,6 +1579,12 @@ enum Language {
   IN
   IT
   JP
+}
+
+enum WalletValuationType {
+  COLLECTIBLE
+  COMIC
+  TOTAL
 }
 
 enum MarketProductStatus {
