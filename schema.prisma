@@ -1420,7 +1420,7 @@ model imx_trades {
   token_id        Int?
   b_order_id      Int?
   b_token_type    String?
-  b_token_id      String?   @db.VarChar(50)
+  b_token_id      String?   @db.VarChar(100)
   b_token_address String?
   b_sold          Int?
   timestamp       String?   @db.Text
@@ -1482,6 +1482,20 @@ model imx_withdrawals {
   updatedAt           DateTime? @updatedAt
 
   @@index([txn_id])
+}
+
+model omi_transfers {
+  id              Int      @id @default(autoincrement())
+  transaction_id  Int
+  status          String
+  user            String
+  receiver        String
+  token_address   String
+  decimals        Int
+  quantity        String
+  timestamp       DateTime
+
+  @@index([transaction_id])
 }
 
 model UserToprojects {
