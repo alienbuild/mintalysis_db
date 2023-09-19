@@ -1154,10 +1154,10 @@ model veve_imx_status {
   id         Int      @id @default(autoincrement())
   table      String?
   field      String?
-  value      String?
-  timestamp  DateTime
+  value      Int?
+  timestamp  DateTime?
   updatedAt  DateTime @updatedAt
-  is_success Boolean? @default(false)
+
 }
 
 model tmp_veve_tokens_collectibles {
