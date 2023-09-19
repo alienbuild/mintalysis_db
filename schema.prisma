@@ -1135,6 +1135,21 @@ model veve_transfers {
   @@index([token_id, from_wallet, to_wallet])
 }
 
+model omi_transfers {
+  id             Int      @id @default(autoincrement())
+  transaction_id Int
+  status         String
+  user           String
+  receiver       String
+  token_address  String
+  decimals       Int
+  quantity       String
+  timestamp      DateTime
+  createdAt      DateTime?
+
+  @@index([transaction_id])
+}
+
 model tmp_veve_tokens_collectibles {
   id                  Int                @id @default(autoincrement())
   blockchain_id       String?            @unique
@@ -1236,12 +1251,17 @@ model veve_wallets {
 }
 
 model veve_wallets_valuations {
-  id        Int                 @id @default(autoincrement())
-  wallet_id String
-  wallet    veve_wallets?       @relation(fields: [wallet_id], references: [id])
-  timestamp DateTime            @default(now())
-  valuation Decimal?            @db.Decimal(10, 2)
-  type      WalletValuationType @default(TOTAL)
+  id                     Int                 @id @default(autoincrement())
+  wallet_id              String
+  wallet                 veve_wallets?       @relation(fields: [wallet_id], references: [id])
+  timestamp              DateTime            @default(now())
+  total_valuation        Decimal?            @db.Decimal(10, 2)
+  collectibles_valuation Decimal?            @db.Decimal(10, 2)
+  comics_valuation       Decimal?            @db.Decimal(10, 2)
+  total_count            Int?
+  total_collectibles     Int?
+  total_comics           Int?
+  type                   WalletValuationType @default(TOTAL)
 }
 
 model veve_watchlist {
