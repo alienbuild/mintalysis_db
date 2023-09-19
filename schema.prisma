@@ -1150,6 +1150,16 @@ model omi_transfers {
   @@index([transaction_id])
 }
 
+model veve_imx_status {
+  id         Int      @id @default(autoincrement())
+  table      String?
+  field      String?
+  value      String?
+  timestamp  DateTime
+  updatedAt  DateTime @updatedAt
+  is_success Boolean? @default(false)
+}
+
 model tmp_veve_tokens_collectibles {
   id                  Int                @id @default(autoincrement())
   blockchain_id       String?            @unique
@@ -1502,20 +1512,6 @@ model imx_withdrawals {
   updatedAt           DateTime? @updatedAt
 
   @@index([txn_id])
-}
-
-model omi_transfers {
-  id              Int      @id @default(autoincrement())
-  transaction_id  Int
-  status          String
-  user            String
-  receiver        String
-  token_address   String
-  decimals        Int
-  quantity        String
-  timestamp       DateTime
-
-  @@index([transaction_id])
 }
 
 model UserToprojects {
