@@ -1135,6 +1135,21 @@ model veve_transfers {
   @@index([token_id, from_wallet, to_wallet])
 }
 
+model omi_transfers {
+  id             Int      @id @default(autoincrement())
+  transaction_id Int
+  status         String
+  user           String
+  receiver       String
+  token_address  String
+  decimals       Int
+  quantity       String
+  timestamp      DateTime
+  createdAt      DateTime?
+
+  @@index([transaction_id])
+}
+
 model tmp_veve_tokens_collectibles {
   id                  Int                @id @default(autoincrement())
   blockchain_id       String?            @unique
@@ -1425,7 +1440,7 @@ model imx_trades {
   token_id        Int?
   b_order_id      Int?
   b_token_type    String?
-  b_token_id      String?   @db.VarChar(50)
+  b_token_id      String?   @db.VarChar(100)
   b_token_address String?
   b_sold          Int?
   timestamp       String?   @db.Text
