@@ -1236,12 +1236,17 @@ model veve_wallets {
 }
 
 model veve_wallets_valuations {
-  id        Int                 @id @default(autoincrement())
-  wallet_id String
-  wallet    veve_wallets?       @relation(fields: [wallet_id], references: [id])
-  timestamp DateTime            @default(now())
-  valuation Decimal?            @db.Decimal(10, 2)
-  type      WalletValuationType @default(TOTAL)
+  id                     Int                 @id @default(autoincrement())
+  wallet_id              String
+  wallet                 veve_wallets?       @relation(fields: [wallet_id], references: [id])
+  timestamp              DateTime            @default(now())
+  total_valuation        Decimal?            @db.Decimal(10, 2)
+  collectibles_valuation Decimal?            @db.Decimal(10, 2)
+  comics_valuation       Decimal?            @db.Decimal(10, 2)
+  total_count            Int?
+  total_collectibles     Int?
+  total_comics           Int?
+  type                   WalletValuationType @default(TOTAL)
 }
 
 model veve_watchlist {
