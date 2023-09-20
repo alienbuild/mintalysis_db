@@ -456,6 +456,8 @@ model projects {
   slug          String?         @unique
   sort          Int             @default(10)
   tile          String?
+  market_cap    Decimal?        @db.Decimal(10, 2)
+  token_count   Int?
   motiff_url    String?
   article       article[]
   communities   communities[]
@@ -1136,7 +1138,7 @@ model veve_transfers {
 }
 
 model omi_transfers {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   transaction_id Int
   status         String
   user           String
@@ -1151,13 +1153,12 @@ model omi_transfers {
 }
 
 model veve_imx_status {
-  id         Int      @id @default(autoincrement())
-  table      String?
-  field      String?
-  value      Int?
-  timestamp  DateTime?
-  updatedAt  DateTime @updatedAt
-
+  id        Int       @id @default(autoincrement())
+  table     String?
+  field     String?
+  value     Int?
+  timestamp DateTime?
+  updatedAt DateTime  @updatedAt
 }
 
 model tmp_veve_tokens_collectibles {
