@@ -448,26 +448,24 @@ model profile {
 }
 
 model projects {
-  id               String             @id @default(uuid())
-  name             String?            @unique
-  abbr             String?            @unique
-  active           Boolean            @default(false)
-  icon             String?
-  slug             String?            @unique
-  sort             Int                @default(10)
-  tile             String?
-  motiff_url       String?
-  article          article[]
-  communities      communities[]
-  notifications    notifications[]
-  price_alerts     price_alerts[]
-  projects_metrics projects_metrics[]
+  id            String             @id @default(uuid())
+  name          String?            @unique
+  abbr          String?            @unique
+  active        Boolean            @default(false)
+  icon          String?
+  slug          String?            @unique
+  sort          Int                @default(10)
+  tile          String?
+  motiff_url    String?
+  article       article[]
+  communities   communities[]
+  notifications notifications[]
+  price_alerts  price_alerts[]
+  metrics       projects_metrics[]
 }
 
 model projects_metrics {
   project_id      String   @id
-  all_time_high   Decimal? @db.Decimal(10, 2)
-  all_time_low    Decimal? @db.Decimal(10, 2)
   market_cap      Decimal? @db.Decimal(10, 2)
   one_day_change  Decimal? @db.Decimal(10, 2)
   one_mo_change   Decimal? @db.Decimal(10, 2)
@@ -477,6 +475,9 @@ model projects_metrics {
   three_mo_change Decimal? @db.Decimal(10, 2)
   total_listings  Int?
   token_count     Int?
+  mint_count      Int?
+  transfer_count  Int?
+  holders_count   Int?
   all_time_change Decimal? @db.Decimal(10, 2)
   volume          Decimal? @db.Decimal(10, 2)
   project         projects @relation(fields: [project_id], references: [id])
