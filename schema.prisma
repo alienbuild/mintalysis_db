@@ -210,7 +210,7 @@ model login_history {
   createdAt  DateTime @default(now())
   browser    String?
   user_id    String
-  ip_address String
+  ip_address String?
   user       User     @relation("user_login_history", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id], map: "login_history_user_id_fkey")
@@ -448,19 +448,38 @@ model profile {
 }
 
 model projects {
-  id            String          @id @default(uuid())
-  name          String?         @unique
-  abbr          String?         @unique
-  active        Boolean         @default(false)
-  icon          String?
-  slug          String?         @unique
-  sort          Int             @default(10)
-  tile          String?
-  motiff_url    String?
-  article       article[]
-  communities   communities[]
-  notifications notifications[]
-  price_alerts  price_alerts[]
+  id               String             @id @default(uuid())
+  name             String?            @unique
+  abbr             String?            @unique
+  active           Boolean            @default(false)
+  icon             String?
+  slug             String?            @unique
+  sort             Int                @default(10)
+  tile             String?
+  motiff_url       String?
+  article          article[]
+  communities      communities[]
+  notifications    notifications[]
+  price_alerts     price_alerts[]
+  projects_metrics projects_metrics[]
+}
+
+model projects_metrics {
+  project_id      String   @id
+  all_time_high   Decimal? @db.Decimal(10, 2)
+  all_time_low    Decimal? @db.Decimal(10, 2)
+  market_cap      Decimal? @db.Decimal(10, 2)
+  one_day_change  Decimal? @db.Decimal(10, 2)
+  one_mo_change   Decimal? @db.Decimal(10, 2)
+  one_wk_change   Decimal? @db.Decimal(10, 2)
+  one_year_change Decimal? @db.Decimal(10, 2)
+  six_mo_change   Decimal? @db.Decimal(10, 2)
+  three_mo_change Decimal? @db.Decimal(10, 2)
+  total_listings  Int?
+  token_count     Int?
+  all_time_change Decimal? @db.Decimal(10, 2)
+  volume          Decimal? @db.Decimal(10, 2)
+  project         projects @relation(fields: [project_id], references: [id])
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -1136,7 +1155,7 @@ model veve_transfers {
 }
 
 model omi_transfers {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   transaction_id Int
   status         String
   user           String
@@ -1151,13 +1170,11 @@ model omi_transfers {
 }
 
 model veve_imx_status {
-  id         Int      @id @default(autoincrement())
-  table      String?
-  field      String?
-  value      Int?
-  timestamp  DateTime?
-  updatedAt  DateTime @updatedAt
-
+  id             Int       @id @default(autoincrement())
+  last_timestamp DateTime? @db.DateTime(6)
+  last_txn_id    Int?
+  table_name     String?
+  updatedAt      DateTime? @updatedAt
 }
 
 model tmp_veve_tokens_collectibles {
