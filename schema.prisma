@@ -823,6 +823,7 @@ model veve_collectibles_metrics {
   six_mo_change      Decimal?          @db.Decimal(10, 2)
   three_mo_change    Decimal?          @db.Decimal(10, 2)
   total_listings     Int?
+  total_issued       Int?
   all_time_change    Decimal?          @db.Decimal(10, 2)
   volume             Decimal?          @db.Decimal(10, 2)
   circulating_supply Decimal?          @db.Decimal(10, 2)
