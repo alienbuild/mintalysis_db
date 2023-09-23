@@ -1086,11 +1086,11 @@ model veve_publishers {
 }
 
 model veve_series {
-  series_id                                  String              @id
+  series_id                                  String                @id
   name                                       String?
-  description                                String?             @db.Text
+  description                                String?               @db.Text
   season                                     Int?
-  is_blindbox                                Boolean?            @default(false)
+  is_blindbox                                Boolean?              @default(false)
   theme_logo_image_url                       String?
   theme_logo_image_thumbnail_url             String?
   theme_logo_image_low_resolution_url        String?
@@ -1128,17 +1128,36 @@ model veve_series {
   square_image_direction                     String?
   licensor_id                                String
   brand_id                                   String
-  slug                                       String?             @unique
-  market_cap                                 Decimal?            @db.Decimal(10, 2)
+  slug                                       String?               @unique
   nbr_of_items                               Int?
   mcp_series_value                           Int?
   veve_collectibles                          veve_collectibles[]
   veve_tokens                                veve_tokens[]
-  createdAt                                  DateTime            @default(now())
-  updatedAt                                  DateTime?           @updatedAt
+  createdAt                                  DateTime              @default(now())
+  updatedAt                                  DateTime?             @updatedAt
+  metrics                                    veve_series_metrics[]
 
   @@index([brand_id], map: "series_brand_id_fkey")
   @@index([licensor_id], map: "series_licensor_id_fkey")
+}
+
+model veve_series_metrics {
+  series_id          String      @id
+  all_time_high      Decimal?    @db.Decimal(10, 2)
+  all_time_low       Decimal?    @db.Decimal(10, 2)
+  floor_price        Decimal?    @db.Decimal(10, 2)
+  market_cap         Decimal?    @db.Decimal(10, 2)
+  one_day_change     Decimal?    @db.Decimal(10, 2)
+  one_mo_change      Decimal?    @db.Decimal(10, 2)
+  one_wk_change      Decimal?    @db.Decimal(10, 2)
+  one_year_change    Decimal?    @db.Decimal(10, 2)
+  six_mo_change      Decimal?    @db.Decimal(10, 2)
+  three_mo_change    Decimal?    @db.Decimal(10, 2)
+  total_listings     Int?
+  all_time_change    Decimal?    @db.Decimal(10, 2)
+  volume             Decimal?    @db.Decimal(10, 2)
+  circulating_supply Decimal?    @db.Decimal(10, 2)
+  series             veve_series @relation(fields: [series_id], references: [series_id])
 }
 
 model veve_tokens {
