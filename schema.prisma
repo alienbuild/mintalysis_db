@@ -955,7 +955,6 @@ model veve_licensors {
   theme_logo_image_thumbnail_url             String?
   theme_logo_image_url                       String?
   slug                                       String?                  @unique
-  market_cap                                 Decimal?                 @db.Decimal(10, 2)
   veve_collectibles                          veve_collectibles[]
   veve_tokens                                veve_tokens[]
   createdAt                                  DateTime                 @default(now())
