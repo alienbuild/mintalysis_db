@@ -1,0 +1,49 @@
+name: Sync Prisma Schema
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out schema repository
+      uses: actions/checkout@v2
+      with:
+        ref: main
+    
+    - name: Copy Schema to Frontend Repository
+      run: |
+        git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_frontend.git
+        cp schema.prisma mintalysis_frontend/prisma/schema.prisma
+        cd frontend-repo
+        git config user.name 'GitHub Actions'
+        git config user.email 'actions@github.com'
+        git add .
+        git commit -m 'Update Prisma Schema'
+        git push
+    
+    - name: Copy Schema to Backend Repository
+      run: |
+        git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_backend.git
+        cp schema.prisma mintalysis_backend/prisma/schema.prisma
+        cd backend-repo
+        git config user.name 'GitHub Actions'
+        git config user.email 'actions@github.com'
+        git add .
+        git commit -m 'Update Prisma Schema'
+        git push
+
+    - name: Copy Schema to Services Repository
+      run: |
+        git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_services.git
+        cp schema.prisma mintalysis_services/prisma/schema.prisma
+        cd services-repo
+        git config user.name 'GitHub Actions'
+        git config user.email 'actions@github.com'
+        git add .
+        git commit -m 'Update Prisma Schema'
+        git push
