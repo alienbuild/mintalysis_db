@@ -43,7 +43,7 @@ model youtube_account {
   videos       Int                              @default(0)
   views        Int                              @default(0)
   createdAt    DateTime                         @default(now())
-  project_id   String?
+  project_id   String?                          @unique
   project      projects?                        @relation(fields: [project_id], references: [id])
   snapshots    youtube_account_snapshot[]
 }
