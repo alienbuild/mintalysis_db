@@ -24,7 +24,7 @@ jobs:
       run: |
         git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_frontend.git
         cp schema.prisma mintalysis_frontend/prisma/schema.prisma
-        cd frontend-repo
+        cd mintalysis_frontend
         git config user.name 'GitHub Actions'
         git config user.email 'actions@github.com'
         git add .
@@ -35,7 +35,7 @@ jobs:
       run: |
         git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_backend.git
         cp schema.prisma mintalysis_backend/prisma/schema.prisma
-        cd backend-repo
+        cd mintalysis_backend
         git config user.name 'GitHub Actions'
         git config user.email 'actions@github.com'
         git add .
@@ -46,7 +46,7 @@ jobs:
       run: |
         git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_services.git
         cp schema.prisma mintalysis_services/prisma/schema.prisma
-        cd services-repo
+        cd mintalysis_services
         git config user.name 'GitHub Actions'
         git config user.email 'actions@github.com'
         git add .
