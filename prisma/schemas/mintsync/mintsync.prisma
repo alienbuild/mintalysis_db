@@ -1,0 +1,53 @@
+model direct_message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  sender_id  String
+  receiver_id String
+  sender    User     @relation("sender", fields: [sender_id], references: [id])
+  receiver  User     @relation("receiver", fields: [receiver_id], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model channel_message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  channel_id Int
+  channel   channel  @relation(fields: [channel_id], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model server {
+  id      Int      @id @default(autoincrement())
+  name    String
+  ownerId String
+  owner   User     @relation(fields: [ownerId], references: [id])
+  members User[]   @relation("server_members")
+  channels channel[]
+}
+
+model channel {
+  id      Int      @id @default(autoincrement())
+  name    String
+  server_id Int
+  server  server   @relation(fields: [server_id], references: [id])
+  messages channel_message[]
+}
+
+model server_member {
+  userId   String
+  serverId Int
+  user     User     @relation(fields: [userId], references: [id])
+  server   server   @relation(fields: [serverId], references: [id])
+  @@id([userId, serverId])
+}
+
+model ChannelMember {
+  userId    String
+  channelId Int
+  user      User    @relation(fields: [userId], references: [id])
+  channel   channel @relation(fields: [channelId], references: [id])
+  @@id([userId, channelId])
+}
+
