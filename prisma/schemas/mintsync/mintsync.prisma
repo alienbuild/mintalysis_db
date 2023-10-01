@@ -51,3 +51,10 @@ model ChannelMember {
   @@id([userId, channelId])
 }
 
+model channel_read_receipt {
+  userId    String      @id
+  channelId Int
+  lastRead  DateTime @default(now())
+  channel   channel  @relation(fields: [channelId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
