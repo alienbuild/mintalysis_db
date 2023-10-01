@@ -1,6 +1,7 @@
 model direct_message {
   id        Int      @id @default(autoincrement())
   content   String
+  type      MessageType @default(TEXT)
   sender_id  String
   receiver_id String
   sender    User     @relation("sender", fields: [sender_id], references: [id])
@@ -11,6 +12,7 @@ model direct_message {
 model channel_message {
   id        Int      @id @default(autoincrement())
   content   String
+  type      MessageType @default(TEXT)
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   channel_id Int
@@ -59,4 +61,10 @@ model channel_read_receipt {
   user      User     @relation(fields: [userId], references: [id])
 
   @@id([userId, channelId])
+}
+
+enum MessageType {
+  TEXT
+  EMOJI
+  GIF
 }
