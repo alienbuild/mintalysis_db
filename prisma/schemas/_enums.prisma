@@ -79,9 +79,9 @@ enum CommunityPrivacy {
 }
 
 enum UserStatus {
-  ACTIVE
+  ONLINE
+  OFFLINE
   IDLE
-  LOGOUT
 }
 
 enum NotificationCategory {
