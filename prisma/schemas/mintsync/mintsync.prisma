@@ -10,14 +10,25 @@ model direct_message {
 }
 
 model channel_message {
-  id        Int      @id @default(autoincrement())
-  content   String
-  type      MessageType @default(TEXT)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  channel_id Int
-  channel   channel  @relation(fields: [channel_id], references: [id])
-  createdAt DateTime @default(now())
+  id               Int              @id @default(autoincrement())
+  content          String
+  type             MessageType @default(TEXT)
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+  channel_id       Int
+  channel          channel     @relation(fields: [channel_id], references: [id])
+ createdThreadId  Int?
+   createdThread    thread?     @relation(name: "CreatedThread")
+   partOfThreadId   Int?
+   partOfThread     thread?     @relation(name: "PartOfThread")
+  createdAt        DateTime   @default(now())
+}
+
+model thread {
+  id                Int               @id @default(autoincrement())
+  startingMessageId Int               @unique
+  startingMessage   channel_message   @relation(name: "CreatedThread", fields: [startingMessageId], references: [id])
+  messages          channel_message[] @relation(name: "PartOfThread")
 }
 
 model server {
@@ -61,10 +72,4 @@ model channel_read_receipt {
   user      User     @relation(fields: [userId], references: [id])
 
   @@id([userId, channelId])
-}
-
-enum MessageType {
-  TEXT
-  EMOJI
-  GIF
 }

@@ -117,3 +117,9 @@ enum CursorOption {
   BLACK
   WHITE
 }
+
+enum MessageType {
+  TEXT
+  EMOJI
+  GIF
+}
