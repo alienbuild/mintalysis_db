@@ -90,14 +90,3 @@ model veve_mcp_staging {
   updatedAt          DateTime? @updatedAt
   transaction_id     Int       @id
 }
-
-// TODO: Might not be needed anymore...
-model offers {
-  id            String   @id
-  offer         Decimal? @db.Decimal(10, 2)
-  offerAccepted Boolean? @default(false)
-  messageId     String?
-  message       message? @relation(fields: [messageId], references: [id])
-
-  @@index([messageId], map: "offers_messageId_fkey")
-}
