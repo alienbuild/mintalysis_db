@@ -12,7 +12,6 @@ model projects {
   tile          String?
   motiff_url    String?
   article       article[]
-  communities   communities[]
   notifications notifications[]
   price_alerts  price_alerts[]
   metrics       projects_metrics[]
