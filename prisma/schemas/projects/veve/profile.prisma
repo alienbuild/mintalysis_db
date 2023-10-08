@@ -1,0 +1,9 @@
+// schemas/projects/veve/profile.prisma
+// VeVe User Profile
+
+model veve_profile {
+  id                            String            @id @default(uuid())
+  userId                        String            @unique
+  verification_code             Int?
+  user                          User              @relation(fields: [userId], references: [id])
+}
