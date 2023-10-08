@@ -21,7 +21,6 @@ model User {
   status                          UserStatus?                      @default(OFFLINE)
   notification_count              Int                              @default(0)
   message_count                   Int                              @default(0)
-  poker_table_potsId              String?
   accounts                        Account[]
   article                         article[]
   following                       follows[]                        @relation("follower")
@@ -30,14 +29,12 @@ model User {
   marketplace_product             marketplace_product[]
   from_notifications              notifications[]                  @relation("from_notifications")
   to_notifications                notifications[]                  @relation("to_notifications")
-  poker_table                     poker_table[]
-  poker_table_message             poker_table_message[]
-  poker_table_participant         poker_table_participant[]
   price_alerts                    price_alerts[]                   @relation("price_alerts")
   profile                         profile?
   sessions                        Session[]
-  poker_table_pots                poker_table_pots?                @relation(fields: [poker_table_potsId], references: [id])
   users_preferences_accessibility users_preferences_accessibility?
+//  poker_profile                   poker_profile?
+  veve_profile                    veve_profile?
   veve_watchlist                  veve_watchlist[]
   servers                         server[]                         @relation("server_members")
   sent_direct_messages            direct_message[]                 @relation("sender")
@@ -47,7 +44,6 @@ model User {
   @@index([email], map: "email")
   @@index([username], map: "username")
   @@index([stripe_customer_id], map: "stripe_customer_id")
-  @@index([poker_table_potsId], map: "users_poker_table_potsId_fkey")
   @@index([id], name: "userId_idx")
   @@map("users")
 }

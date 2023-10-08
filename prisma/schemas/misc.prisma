@@ -64,6 +64,7 @@ model veve_imx_status {
   last_timestamp String?
   last_txn_id    Int?
   table_name     String?
+  next_cursor         String?
   updatedAt      DateTime? @updatedAt
 }
 
