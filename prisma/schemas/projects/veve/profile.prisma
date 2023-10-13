@@ -6,4 +6,7 @@ model veve_profile {
   userId                        String            @unique
   verification_code             Int?
   user                          User              @relation(fields: [userId], references: [id])
+  edition                       Int?
+  collectible_id                String?
+  collectible                   veve_collectibles? @relation(fields: [collectible_id], references: [collectible_id])
 }
