@@ -63,8 +63,8 @@ model veve_imx_status {
   id             Int       @id @default(autoincrement())
   last_timestamp String?
   last_txn_id    Int?
-  table_name     String?
-  next_cursor         String?
+  table_name     String?   @unique
+  next_cursor    String?   @db.Text
   updatedAt      DateTime? @updatedAt
 }
 
