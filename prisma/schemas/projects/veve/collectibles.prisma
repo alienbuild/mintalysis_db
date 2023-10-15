@@ -35,7 +35,6 @@ model veve_collectibles {
   licensor_id                          String?
   series_id                            String?
   drop_method                          String?
-  minimum_age                          Int?
   is_free                              Boolean?                         @default(false)
   total_store_allocation               Int?
   slug                                 String?                          @unique

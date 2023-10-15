@@ -21,8 +21,3 @@ model error_log {
   error_msg    String?
   createdAt    DateTime @default(now())
 }
-
-model veve_metadata_missing {
-  token_id  Int     @id
-  wallet_id String?
-}

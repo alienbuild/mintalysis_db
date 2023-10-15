@@ -42,6 +42,7 @@ model veve_wallets_valuations {
 
 model veve_tokens {
   token_id           Int                 @id
+  name               String?
   edition            Int?
   mint_date          DateTime?
   rarity             String?
@@ -60,6 +61,7 @@ model veve_tokens {
   to_process         Boolean?            @default(false)
   is_invalid         Boolean?            @default(false)
   is_burned          Boolean?            @default(false)
+  no_meta            Boolean?            @default(false)
   veve_brands        veve_brands?        @relation(fields: [brand_id], references: [brand_id])
   veve_wallets       veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
   veve_licensors     veve_licensors?     @relation(fields: [licensor_id], references: [licensor_id])
@@ -84,17 +86,18 @@ model veve_transfers {
   token_id        Int
   createdAt       DateTime  @default(now())
   updatedAt       DateTime?
+  to_process      Boolean?  @default(false)
   break_even      Float?
-  entry_price     Float?
+  entry_price     Float?  
   break_even_new  Float?
   entry_price_new Float?
-  timestamp_new   DateTime? @db.DateTime(6)
+  timestamp_dt    DateTime? @db.DateTime(6)
   is_transfer     Boolean?  @default(false)
   is_burn         Boolean?  @default(false)
   is_craft        Boolean?  @default(false)
   is_auction      Boolean?  @default(false)
   is_redemption   Boolean?  @default(false)
-  is_mkt_action   Boolean?  @default(false)
+  is_mkt_auction  Boolean?  @default(false)
   is_mkt_fixed    Boolean?  @default(false)
 
   @@index([token_id, from_wallet, to_wallet])
@@ -105,9 +108,11 @@ model veve_mints {
   wallet_id     String?
   timestamp     String?   @db.Text
   token_id      Int
+  to_process    Boolean?  @default(false)
+  code_step     Int?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime?
-  timestamp_new DateTime? @db.DateTime(6)
+  timestamp_dt  DateTime? @db.DateTime(6)
   is_burn       Boolean?  @default(false)
   is_redemption Boolean?  @default(false)
 

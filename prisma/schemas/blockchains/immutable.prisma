@@ -16,6 +16,7 @@ model imx_deposits {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime? @updatedAt
   timestamp_d        DateTime? @db.DateTime(6)
+  to_process         Boolean?  @default(true)
 
   @@index([wallet_id])
 }
@@ -51,6 +52,7 @@ model imx_orders {
   createdAt                DateTime  @default(now())
   updatedAt                DateTime? @updatedAt
   status                   String?
+  to_process               Boolean?  @default(true)
 
   @@index([wallet_id])
 }
@@ -71,6 +73,7 @@ model imx_trades {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime? @updatedAt
   a_token_address String?   @db.Text
+  to_process      Boolean?  @default(true)
 }
 
 model imx_withdrawals {
@@ -89,6 +92,7 @@ model imx_withdrawals {
   timestamp           DateTime?
   createdAt           DateTime  @default(now())
   updatedAt           DateTime? @updatedAt
+  to_process          Boolean?  @default(true)
 
   @@index([txn_id])
 }
