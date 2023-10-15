@@ -10,4 +10,5 @@ model veve_profile {
   collectible_id                String?
   collectible                   veve_collectibles? @relation(fields: [collectible_id], references: [collectible_id])
   verified                      Boolean            @default(false)
+  requestedAt                   DateTime?
 }
