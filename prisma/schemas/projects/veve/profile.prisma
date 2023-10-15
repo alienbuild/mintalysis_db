@@ -2,11 +2,12 @@
 // VeVe User Profile
 
 model veve_profile {
-  id                            String            @id @default(uuid())
-  userId                        String            @unique
+  id                            String             @id @default(uuid())
+  userId                        String             @unique
   verification_code             Int?
-  user                          User              @relation(fields: [userId], references: [id])
+  user                          User               @relation(fields: [userId], references: [id])
   edition                       Int?
   collectible_id                String?
   collectible                   veve_collectibles? @relation(fields: [collectible_id], references: [collectible_id])
+  verified                      Boolean            @default(false)
 }
