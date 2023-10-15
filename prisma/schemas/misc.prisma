@@ -55,6 +55,7 @@ model omi_transfers {
   quantity       String
   timestamp      DateTime
   createdAt      DateTime?
+  to_process     Boolean?  @default(true)
 
   @@index([transaction_id])
 }
