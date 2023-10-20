@@ -46,7 +46,7 @@ model veve_comics {
   first_public_mint         Int?
   mcp_low_ed_limit          Int?
   mcp_rarity_value          Decimal?                   @db.Decimal(10, 2)
-  comic_image_url_id        String?                    @db.VarChar(50)
+  comic_image_url_id        String?                    @db.VarChar(50) @unique
   translations              veve_comics_translations[]
   veve_watchlist            veve_watchlist[]
   artists                   artists[]                  @relation("artistsToveve_comics")

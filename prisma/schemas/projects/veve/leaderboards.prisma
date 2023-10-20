@@ -19,16 +19,21 @@ model veve_top_wallet_metrics {
   id                Int          @id @default(autoincrement())
   datetime          DateTime?   @db.DateTime(0)
   rank              Int?
+  prev_rank         Int?
+  rank_change       Int?
   wallet_id         String
-  token_count       Int?
+  tokens            Int?
+  comics            Int?
+  collectibles      Int?
+  artist_proofs     Int?
   omi_balance       Float?
-  mint_count        Int?
+  mints             Int?
   purchases         Int?
   sales             Int?
   net_accum         Int?
-  createdAt         DateTime     @default(now())
-  last_updated      DateTime?    @db.DateTime(0)
-  wallet       veve_wallets @relation(fields: [wallet_id], references: [id])
+  created_at        DateTime     @default(now())
+  updated_at        DateTime?    @db.DateTime(0)
+  wallet            veve_wallets @relation(fields: [wallet_id], references: [id])
 
   @@index([wallet_id], map: "veve_top_wallet_metrics_wallet_id_fkey")
 }
