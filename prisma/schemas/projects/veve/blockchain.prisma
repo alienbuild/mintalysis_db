@@ -110,7 +110,6 @@ model veve_mints {
   timestamp     String?   @db.Text
   token_id      Int
   to_process    Boolean?  @default(false)
-  code_step     Int?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime?
   timestamp_dt  DateTime? @db.DateTime(6)
