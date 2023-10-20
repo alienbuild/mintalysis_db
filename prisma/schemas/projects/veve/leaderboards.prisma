@@ -17,11 +17,11 @@ model veve_leaderboard {
 
 model veve_top_wallet_metrics {
   id                Int          @id @default(autoincrement())
-  datetime          DateTime?   @db.DateTime(0)
-  rank              Int?
+  datetime          DateTime?    @db.DateTime(0)
+  rank              Int?         @unique
   prev_rank         Int?
   rank_change       Int?
-  wallet_id         String
+  wallet_id         String       @unique
   tokens            Int?
   comics            Int?
   collectibles      Int?

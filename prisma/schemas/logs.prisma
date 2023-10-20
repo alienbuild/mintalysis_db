@@ -13,11 +13,14 @@ model login_history {
 }
 
 model error_log {
-  id           Int      @id @default(autoincrement())
-  type         String?
-  function     String?
-  missing_data Boolean?
-  table_name   String?
-  error_msg    String?
-  createdAt    DateTime @default(now())
+  id              Int      @id @default(autoincrement())
+  token_id        Int?
+  transaction_id  Int?
+  table_name      String?
+  type            String?
+  process         String?
+  missing_data    Boolean?
+  bad_data        Boolean?
+  error_msg       String?
+  createdAt       DateTime @default(now())
 }
