@@ -32,16 +32,17 @@ model thread {
 }
 
 model server {
-  id            Int      @id @default(autoincrement())
-  slug          String?  @unique
+  id            Int         @id @default(autoincrement())
+  slug          String?     @unique
   description   String?
   icon          String?
   coverImage    String?
   name          String
   ownerId       String
-  owner         User     @relation(fields: [ownerId], references: [id])
-  members       User[]   @relation("server_members")
+  owner         User        @relation(fields: [ownerId], references: [id])
+  members       User[]      @relation("server_members")
   channels      channel[]
+  is_public     Boolean     @default(false)
 }
 
 model channel {
