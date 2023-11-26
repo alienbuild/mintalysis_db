@@ -1,0 +1,75 @@
+// schemas/projects/veve/mcp.prisma
+// VeVe MCP Calculation
+
+
+model veve_mcp_daily_pts {
+  id               Int        @id @default(autoincrement())
+  wallet_id        String     @unique   
+  mcp_daily_pts    Json?
+  mcp_total_pts    Decimal?   @default(0)
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
+
+model veve_mcp_staging {
+  id                 Int        @id @default(autoincrement())
+  transaction_id     Int?      
+  token_id           Int?
+  from_wallet        String?
+  buyer_username     String?
+  to_wallet          String?
+  seller_username    String?
+  timestamp          DateTime?
+  txn_type           String?
+  gem_amount         Float?     
+  type               String?
+  edition            Int?
+  rarity             String?
+  collectible_id     String?
+  comic_image_url_id String?
+  series_id          String?
+  nbr_of_items       Int?
+  comic_low_ed_limit Int?
+  comic_rarity_value Decimal?  @db.Decimal(10, 2)
+  coll_base_value    Int?
+  coll_dup_value     Decimal?  @db.Decimal(10, 2)
+  coll_rarity_value  Decimal?  @db.Decimal(10, 2)
+  coll_low_ed_limit  Int?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
+}
+
+model veve_mcp_completed_sets {
+  id               Int        @id @default(autoincrement())
+  wallet_id        String        
+  series_id        String
+  date_completed   DateTime
+  completed_count  Int
+  date_set_broken  DateTime?
+  completed_set    Boolean
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
+
+model veve_mcp_staging_sets {
+  id               Int        @id @default(autoincrement())
+  wallet_id        String
+  series_id        String
+  collectible_id   String
+  count            Int
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
+
+model veve_mcp_staging_csv_import {
+  id               Int        @id @default(autoincrement())
+  txn_date         DateTime
+  txn_type         String
+  item_name        String?
+  edition          Int?
+  buyer_username   String?
+  seller_username  String?
+  gem_amount       Float?
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
