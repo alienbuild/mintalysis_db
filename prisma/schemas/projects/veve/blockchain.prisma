@@ -13,6 +13,9 @@ model veve_wallets {
   first_activity_date     DateTime?
   last_activity_date      DateTime?
   token_count             Int?
+  collectibles_count      Int?
+  comics_count            Int?
+  completed_sets          Int?
   lgcy_veve_id            String?
   lgcy_veve_username      String?
   active                  Boolean?                  @default(false)

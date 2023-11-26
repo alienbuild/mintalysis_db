@@ -69,26 +69,3 @@ model veve_imx_status {
   updatedAt      DateTime? @updatedAt
 }
 
-model veve_mcp_staging {
-  token_id           Int
-  from_wallet        String
-  to_wallet          String
-  timestamp          DateTime
-  type               String?
-  edition            Int?
-  rarity             String?
-  collectible_id     String?
-  unique_cover_id    String?
-  comic_image_url_id String?
-  series_id          String?
-  nbr_of_items       Int?
-  comic_low_ed_limit Int?
-  comic_rarity_value Decimal?  @db.Decimal(10, 2)
-  coll_base_value    Int?
-  coll_dup_value     Decimal?  @db.Decimal(10, 2)
-  coll_rarity_value  Decimal?  @db.Decimal(10, 2)
-  coll_low_ed_limit  Int?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime? @updatedAt
-  transaction_id     Int       @id
-}
