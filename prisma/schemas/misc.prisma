@@ -69,3 +69,4 @@ model veve_imx_status {
   updatedAt      DateTime? @updatedAt
 }
 
+
