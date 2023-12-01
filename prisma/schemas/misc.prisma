@@ -69,4 +69,10 @@ model veve_imx_status {
   updatedAt      DateTime? @updatedAt
 }
 
+model newsletter_subscribers {
+  id    Int          @id @default(autoincrement())
+  email String       @unique
+  ip_address    String?
+  createdAt DateTime @default(now())
+}
 

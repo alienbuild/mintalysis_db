@@ -72,7 +72,6 @@ model veve_tokens {
   veve_wallets       veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
   veve_licensors     veve_licensors?     @relation(fields: [licensor_id], references: [licensor_id])
   veve_series        veve_series?        @relation(fields: [series_id], references: [series_id])
-//  veve_collectibles  veve_collectibles[] @relation("veve_collectiblesToveve_tokens")
   veveTokenCollectibles  veveTokenCollectible[]
   veveTokenComics        veveTokenComic[]
 
@@ -143,6 +142,8 @@ model veve_mints {
   is_burn       Boolean?  @default(false)
   is_redemption Boolean?  @default(false)
 
+  @@index([createdAt])
+  @@index([timestamp_dt])
   @@index([wallet_id, token_id])
   @@index([token_id])
   @@index([wallet_id])
