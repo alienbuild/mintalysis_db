@@ -73,3 +73,66 @@ model veve_mcp_staging_csv_import {
   updatedAt        DateTime   @updatedAt()
   created_at       DateTime   @default(now())
 }
+
+model veve_mcp_staging_csv_import_sets {
+  id                   Int        @id @default(autoincrement())
+  wallet_id            String
+  series_id            String
+  series_name          String?
+  nbr_of_items         Int?
+  daily_mcp_pts        Float?
+  date_set_completed   DateTime
+  date_set_broken      DateTime?
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
+
+model veve_mcp_output {
+  id                  Int        @id @default(autoincrement())
+  wallet_id           String
+  mint_count          Int?
+  mint_points         Int? 
+  mkt_purchase_count  Int?
+  mkt_purchase_pts    Int?
+  col_count           Int? 
+  col_pts             Int?
+  col_rarity_bonus    Float?     
+  col_low_ed_bonus    Float?     
+  col_dup_bonus       Float?     
+  col_set_count       Int?
+  col_set_bonus       Int?
+  col_dup_set_bonus   Int?
+  comic_count         Int?
+  comic_pts           Float?     
+  comic_rarity_bonus  Float?     
+  comic_low_ed_bonus  Float?     
+  comic_dup_bonus     Float?     
+  omi_balance         Float?     
+  omi_mcp_pts         Float?     
+  total_col_pts       Float?     
+  total_comic_pts     Float?     
+  total_daily_pts     Float?     @default(0)
+  total__mcp_pts      Float?     @default(0)
+  mcp_level           String?
+  mcp_rank            String?
+  updated_at          DateTime   @updatedAt()
+  created_at          DateTime   @default(now())
+}
+
+model mcp_rank {
+  id               Int        @id @default(autoincrement())
+  rank             String
+  min_points       Int
+  max_points       Int
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
+
+model mcp_level {
+  id               Int        @id @default(autoincrement())
+  level            String
+  min_points       Int
+  max_points       Int
+  updatedAt        DateTime   @updatedAt()
+  created_at       DateTime   @default(now())
+}
