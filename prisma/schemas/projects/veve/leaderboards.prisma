@@ -19,7 +19,7 @@ model veve_top_wallet_metrics {
   id                Int          @id @default(autoincrement())
   datetime          DateTime?    @db.DateTime(0)
   rank              Int?         @unique
-  prev_rank         Int?
+  prev_rank         Int?         @unique
   rank_change       Int?
   wallet_id         String       @unique
   tokens            Int?
@@ -32,7 +32,7 @@ model veve_top_wallet_metrics {
   sales             Int?
   net_accum         Int?
   created_at        DateTime     @default(now())
-  updated_at        DateTime?    @db.DateTime(0)
+  updated_at        DateTime?    @updatedAt
   wallet            veve_wallets @relation(fields: [wallet_id], references: [id])
 
   @@index([wallet_id], map: "veve_top_wallet_metrics_wallet_id_fkey")

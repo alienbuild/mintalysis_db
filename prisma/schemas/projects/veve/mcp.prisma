@@ -7,12 +7,13 @@ model veve_mcp_daily_pts {
   wallet_id        String     @unique   
   mcp_daily_pts    Json?
   mcp_total_pts    Decimal?   @default(0)
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
 
 model veve_mcp_staging {
   id                 Int        @id @default(autoincrement())
+  wallet_id          String?
   transaction_id     Int?      
   token_id           Int?
   from_wallet        String?
@@ -47,7 +48,7 @@ model veve_mcp_completed_sets {
   completed_count  Int
   date_set_broken  DateTime?
   completed_set    Boolean
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -57,20 +58,21 @@ model veve_mcp_staging_sets {
   series_id        String
   collectible_id   String
   count            Int
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
 
 model veve_mcp_staging_csv_import {
   id               Int        @id @default(autoincrement())
-  txn_date         DateTime
-  txn_type         String
+  wallet_id        String?
+  txn_date         DateTime?
+  txn_type         String?
   item_name        String?
   edition          Int?
   buyer_username   String?
   seller_username  String?
   gem_amount       Float?
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -83,12 +85,13 @@ model veve_mcp_staging_csv_import_sets {
   daily_mcp_pts        Float?
   date_set_completed   DateTime
   date_set_broken      DateTime?
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
 
 model veve_mcp_output {
   id                  Int        @id @default(autoincrement())
+  mcp_date            DateTime
   wallet_id           String
   mint_count          Int?
   mint_points         Int? 
@@ -115,24 +118,24 @@ model veve_mcp_output {
   total__mcp_pts      Float?     @default(0)
   mcp_level           String?
   mcp_rank            String?
-  updated_at          DateTime   @updatedAt()
+  updatedAt           DateTime   @updatedAt
   created_at          DateTime   @default(now())
 }
 
-model mcp_rank {
+model veve_mcp_rank {
   id               Int        @id @default(autoincrement())
   rank             String
   min_points       Int
   max_points       Int
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
 
-model mcp_level {
+model veve_mcp_level {
   id               Int        @id @default(autoincrement())
   level            String
   min_points       Int
   max_points       Int
-  updatedAt        DateTime   @updatedAt()
+  updatedAt        DateTime   @updatedAt
   created_at       DateTime   @default(now())
 }
