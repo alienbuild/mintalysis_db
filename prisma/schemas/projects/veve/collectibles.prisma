@@ -53,7 +53,7 @@ model veve_collectibles {
   metrics                              veve_collectibles_metrics?
   translations                         veve_collectibles_translations[]
   veve_watchlist                       veve_watchlist[]
-//  veve_tokens                          veve_tokens[]                    @relation("veve_collectiblesToveve_tokens")
+  //veve_tokens                          veve_tokens[]                    @relation("veve_collectiblesToveve_tokens")
   veveTokenCollectibles                veveTokenCollectible[]
 
 
@@ -64,13 +64,14 @@ model veve_collectibles {
 }
 
 model veve_collectibles_translations {
-  collectible_id String
-  name           String?
-  description    String?           @db.Text
-  language       Language
-  edition_type   String?
-  rarity         String?
-  collectible    veve_collectibles @relation(fields: [collectible_id], references: [collectible_id])
+  collectible_id    String
+  name              String?
+  description       String?           @db.Text
+  ai_description    String?        @db.Text
+  language          Language
+  edition_type      String?
+  rarity            String?
+  collectible       veve_collectibles @relation(fields: [collectible_id], references: [collectible_id])
 
   @@id([language, collectible_id])
   @@index([language])
