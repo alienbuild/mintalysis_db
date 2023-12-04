@@ -67,7 +67,7 @@ model veve_collectibles_translations {
   collectible_id    String
   name              String?
   description       String?           @db.Text
-  ai_description    String?        @db.Text
+  ai_description    String?           @db.Text
   language          Language
   edition_type      String?
   rarity            String?
