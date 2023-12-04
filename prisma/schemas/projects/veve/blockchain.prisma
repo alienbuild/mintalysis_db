@@ -25,6 +25,8 @@ model veve_wallets {
   wallet_tags             wallet_tags?              @relation(fields: [tagsId], references: [id])
   veve_wallets_valuations veve_wallets_valuations[]
 
+  @@index([last_activity_date])
+  @@index([first_activity_date])
   @@index([tagsId], map: "veve_wallets_tagsId_fkey")
   @@index([id, user_id, veve_username])
 }
