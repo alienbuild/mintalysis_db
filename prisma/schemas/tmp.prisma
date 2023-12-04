@@ -162,7 +162,8 @@ model temp_wallet_token_ownership {
   wallet_id  String
   token_id   Int
   date      DateTime
-  isComic   Boolean
+  collectible_id    String?
+  unique_cover_id   String?
 
   @@index([wallet_id, date])
   @@index([token_id, date])
