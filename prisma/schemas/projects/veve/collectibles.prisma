@@ -68,6 +68,11 @@ model veve_collectibles_translations {
   name              String?
   description       String?           @db.Text
   ai_description    String?           @db.Text
+  seo_description   String?           @db.Text
+  seo_keywords      String?
+  seo_title         String?
+  og_title          String?
+  og_description    String?
   language          Language
   edition_type      String?
   rarity            String?
