@@ -7,7 +7,7 @@ model veve_mcp_daily_pts {
   wallet_id        String     @unique   
   mcp_daily_pts    Json?
   mcp_total_pts    Decimal?   @default(0)
-  updatedAt        DateTime   @updatedAt
+  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -36,8 +36,8 @@ model veve_mcp_staging {
   coll_dup_value     Decimal?  @db.Decimal(10, 2)
   coll_rarity_value  Decimal?  @db.Decimal(10, 2)
   coll_low_ed_limit  Int?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime? @updatedAt
+  created_at         DateTime  @default(now())
+  updated_at         DateTime? @updatedAt
 }
 
 model veve_mcp_completed_sets {
@@ -48,7 +48,7 @@ model veve_mcp_completed_sets {
   completed_count  Int
   date_set_broken  DateTime?
   completed_set    Boolean
-  updatedAt        DateTime   @updatedAt
+  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -58,7 +58,7 @@ model veve_mcp_staging_sets {
   series_id        String
   collectible_id   String
   count            Int
-  updatedAt        DateTime   @updatedAt
+  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -72,7 +72,7 @@ model veve_mcp_staging_csv_import {
   buyer_username   String?
   seller_username  String?
   gem_amount       Float?
-  updatedAt        DateTime   @updatedAt
+  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -85,8 +85,8 @@ model veve_mcp_staging_csv_import_sets {
   daily_mcp_pts        Float?
   date_set_completed   DateTime
   date_set_broken      DateTime?
-  updatedAt        DateTime   @updatedAt
-  created_at       DateTime   @default(now())
+  updated_at           DateTime   @updatedAt
+  created_at           DateTime   @default(now())
 }
 
 model veve_mcp_output {
@@ -118,7 +118,7 @@ model veve_mcp_output {
   total__mcp_pts      Float?     @default(0)
   mcp_level           String?
   mcp_rank            String?
-  updatedAt           DateTime   @updatedAt
+  updated_at          DateTime?  @updatedAt
   created_at          DateTime   @default(now())
 }
 
@@ -127,7 +127,7 @@ model veve_mcp_rank {
   rank             String
   min_points       Int
   max_points       Int
-  updatedAt        DateTime   @updatedAt
+  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -136,6 +136,6 @@ model veve_mcp_level {
   level            String
   min_points       Int
   max_points       Int
-  updatedAt        DateTime   @updatedAt
+  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
