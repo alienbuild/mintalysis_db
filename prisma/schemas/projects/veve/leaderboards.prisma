@@ -37,3 +37,13 @@ model veve_top_wallet_metrics {
 
   @@index([wallet_id], map: "veve_top_wallet_metrics_wallet_id_fkey")
 }
+
+model veve_wallet_token_counts {
+    id              Int          @id @default(autoincrement())
+    wallet_id       String       @unique
+    collectible_id  String?
+    unique_cover_id String?
+    count           Int?
+    created_at      DateTime     @default(now())
+    updated_at      DateTime?    @updatedAt
+}
