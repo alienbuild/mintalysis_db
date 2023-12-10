@@ -55,6 +55,7 @@ model veve_collectibles {
   veve_watchlist                       veve_watchlist[]
   //veve_tokens                          veve_tokens[]                    @relation("veve_collectiblesToveve_tokens")
   veveTokenCollectibles                veveTokenCollectible[]
+  wallets                             veve_wallet_token_counts[]
 
 
   @@index([brand_id], map: "collectibles_brand_id_fkey")

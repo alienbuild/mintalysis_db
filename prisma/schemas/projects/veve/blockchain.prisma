@@ -24,6 +24,7 @@ model veve_wallets {
   veve_tokens             veve_tokens[]
   wallet_tags             wallet_tags?              @relation(fields: [tagsId], references: [id])
   veve_wallets_valuations veve_wallets_valuations[]
+  wallet_token_counts     veve_wallet_token_counts[]
 
   @@index([last_activity_date])
   @@index([first_activity_date])
@@ -147,4 +148,15 @@ model veve_mints {
   @@index([wallet_id, token_id])
   @@index([token_id])
   @@index([wallet_id])
+}
+
+model veve_wallet_token_counts {
+  id               Int            @id
+  wallet_id        String?
+  collectible_id   String?
+  unique_cover_id  String?
+  count            BigInt?
+  wallet           veve_wallets   @relation(fields: [wallet_id], references: [id])
+  collectible      veve_collectibles @relation(fields: [collectible_id], references: [id])
+  comic            veve_comics    @relation(fields: [unique_cover_id], references: [id])
 }
