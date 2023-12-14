@@ -57,5 +57,4 @@ model veve_wallet_token_counts {
     comic_count        Int?
     created_at         DateTime     @default(now())
     updated_at         DateTime?    @updatedAt
-
 }
