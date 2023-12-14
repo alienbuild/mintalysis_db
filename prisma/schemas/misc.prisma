@@ -44,22 +44,6 @@ model odb_tokens {
   @@index([wallet_id])
 }
 
-model omi_transfers {
-  id             Int       @id @default(autoincrement())
-  transaction_id Int
-  status         String
-  user           String
-  receiver       String
-  token_address  String
-  decimals       Int
-  quantity       String
-  timestamp      DateTime
-  createdAt      DateTime?
-  to_process     Boolean?  @default(true)
-
-  @@index([transaction_id])
-}
-
 model veve_imx_status {
   id             Int       @id @default(autoincrement())
   last_timestamp String?

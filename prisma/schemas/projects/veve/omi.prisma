@@ -1,11 +1,26 @@
 // schemas/projects/veve/omi.prisma
 // OMI Transactions
 
+model omi_transfers {
+  id             Int       @id @default(autoincrement())
+  transaction_id Int       @unique
+  status         String
+  user           String
+  receiver       String
+  token_address  String
+  decimals       Int
+  quantity       String
+  timestamp      DateTime
+  createdAt      DateTime  @default(now())
+  to_process     Boolean?  @default(true)
+
+  @@index([transaction_id])
+}
 
 model omi_vault_transactions {
     id                Int      @id @default(autoincrement())
     blockchain        String?
-    transaction_hash  String?
+    transaction_hash  String?  @unique
     from_address      String?
     to_address        String?
     date_time         DateTime?
@@ -14,6 +29,7 @@ model omi_vault_transactions {
     usd_value         Float?
     updated_at        DateTime? @updatedAt
     created_at        DateTime? @default(now())
+    to_process        Boolean?  @default(true)
 }
 
 model omi_burn_sheet {
