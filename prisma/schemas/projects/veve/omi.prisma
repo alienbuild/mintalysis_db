@@ -1,0 +1,83 @@
+// schemas/projects/veve/omi.prisma
+// OMI Transactions
+
+
+model omi_vault_transactions {
+    id                Int      @id @default(autoincrement())
+    blockchain        String?
+    transaction_hash  String?
+    from_address      String?
+    to_address        String?
+    date_time         DateTime?
+    omi_amount        Float?
+    omi_price         Float?
+    usd_value         Float?
+    updated_at        DateTime? @updatedAt
+    created_at        DateTime? @default(now())
+}
+
+model omi_burn_sheet {
+    id                Int       @id @default(autoincrement())
+    date              DateTime? 
+    day_order         Int?
+    omi_price         Float?
+    omi_usd           Float?
+    pri_omi_burns     Float?
+    sec_omi_burns     Float?
+    pri_usd_value     Float?
+    sec_usd_value     Float?
+    gem_omi_burns     Float?
+    gem_usd_value     Float?
+    total_omi_burns   Float?
+    pct_omi_burns     Float?
+    total_gems_usd    Float?
+    pct_gems_usd      Float?
+    gems_in_app       Float?
+    gem_growth_ratio  Int?
+    total_purch_fees  Float?
+    drop_type         String?
+    drop_name         String?
+    updated_at        DateTime? @updatedAt
+    created_at        DateTime? @default(now())
+}
+
+model omi_metrics {
+    id                  Int      @id @default(autoincrement())
+    date                DateTime?
+    omi_price           Float?
+    active_circ_supply  Float?
+    maximum_supply      Float?
+    active_circ_mkt_cap Float?
+    max_supply_mkt_cap  Float?
+    vault_l1_omi        Float?
+    vault_l2_omi        Float?
+    vault_l1_stg_omi    Float?
+    reserve_l1_omi      Float?
+    reserve_l2_omi      Float?
+    reserve_l1_stg_omi  Float?   
+    burn_l1_omi         Float?
+    burn_l2_omi         Float?
+    burn_l1_stg_omi     Float?
+    pct_omi_burns       Float?
+    locked__l1_omi      Float?
+    pct_locked_omi      Float?
+    omi_holders_l2      Int?
+    omi_held_l2         Float?
+    omi_holders_l1      Int?
+    omi_held_l1         Float?
+    omi_holders_gochain Int?
+    omi_held_gochain    Float?
+    omi_24h_vol         Float?
+    omi_24h_low         Float?
+    omi_24h_high        Float?
+    omi_24h_change      Float?
+    omi_7d_change       Float?
+    omi_30d_change      Float?
+    omi_90d_change      Float?
+    omi_180d_change     Float?
+    omi_365d_change     Float?
+    omi_all_time_high   Float?
+    omi_all_time_low    Float?
+    updated_at          DateTime? @updatedAt
+    created_at          DateTime? @default(now())
+}

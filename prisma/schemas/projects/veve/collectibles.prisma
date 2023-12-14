@@ -46,6 +46,9 @@ model veve_collectibles {
   mcp_total_value                      Decimal?                         @db.Decimal(5, 2)
   is_name_unique                       Boolean?                         @default(false)
   total_burned                         Int?
+  mintalysis_note                      String?
+  veve_held_edition_count              Int?
+  licensor_held_edition_count          Int?
   tmp_veve_tokens_collectibles         tmp_veve_tokens_collectibles[]
   brand                                veve_brands?                     @relation(fields: [brand_id], references: [brand_id])
   licensor                             veve_licensors?                  @relation(fields: [licensor_id], references: [licensor_id])
