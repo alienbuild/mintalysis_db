@@ -1502,6 +1502,22 @@ model veve_mcp_level {
   created_at DateTime  @default(now())
 }
 
+model tmp_veve_news {
+  id            Int       @id @default(autoincrement())
+  original_link String
+  content       String    @db.Text
+  title         String
+  subtitle      String?   @db.Text
+  published_at  DateTime
+  image         String?
+  tags          String?
+  slug          String?   @unique
+  author_id     String?   @default("771849d5-5701-452a-b4ae-a67ddfe92fe3")
+  project_id    String?   @default("de2180a8-4e26-402a-aed1-a09a51e6e33d")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+}
+
 // schemas/projects/veve/omi.prisma
 // OMI Transactions
 
@@ -1600,7 +1616,6 @@ model omi_metrics {
   omi_all_time_low    Float?
   updated_at          DateTime? @updatedAt
   created_at          DateTime? @default(now())
-
 }
 
 // schemas/projects/veve/profile.prisma
