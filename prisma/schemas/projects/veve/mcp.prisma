@@ -13,6 +13,7 @@ model veve_mcp_daily_pts {
 
 model veve_mcp_staging {
   id                 Int        @id @default(autoincrement())
+  username           String?
   wallet_id          String?
   transaction_id     Int?      
   token_id           Int?
@@ -72,7 +73,6 @@ model veve_mcp_staging_csv_import {
   buyer_username   String?
   seller_username  String?
   gem_amount       Float?
-  updated_at       DateTime?  @updatedAt
   created_at       DateTime   @default(now())
 }
 
@@ -115,7 +115,7 @@ model veve_mcp_output {
   total_col_pts       Float?     
   total_comic_pts     Float?     
   total_daily_pts     Float?     @default(0)
-  total__mcp_pts      Float?     @default(0)
+  total_mcp_pts       Float?     @default(0)
   mcp_level           String?
   mcp_rank            String?
   updated_at          DateTime?  @updatedAt

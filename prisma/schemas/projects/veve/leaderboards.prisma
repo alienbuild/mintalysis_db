@@ -15,37 +15,46 @@ model veve_leaderboard {
   @@index([wallet_id], map: "veve_leaderboard_wallet_id_fkey")
 }
 
-model veve_top_wallet_metrics {
-  id                Int          @id @default(autoincrement())
-  datetime          DateTime?    @db.DateTime(0)
-  rank              Int?         @unique
-  prev_rank         Int?         @unique
-  rank_change       Int?
-  wallet_id         String       @unique
-  tokens            Int?
-  comics            Int?
-  collectibles      Int?
-  artist_proofs     Int?
-  omi_balance       Float?
-  mints             Int?
-  purchases         Int?
-  sales             Int?
-  net_accum         Int?
-  created_at        DateTime     @default(now())
-  updated_at        DateTime?    @updatedAt
-  wallet            veve_wallets @relation(fields: [wallet_id], references: [id])
+model veve_wallet_metrics {
+  id                  Int          @id @default(autoincrement())
+  datetime            DateTime?    @db.DateTime(0)
+  rank                Int?         @unique
+  prev_rank           Int?         @unique
+  rank_change         Int?
+  wallet_id           String       @unique
+  token_count         Int?
+  comics_count        Int?
+  collectibles_count  Int?
+  artist_proofs       Int?
+  omi_balance         Float?
+  mints_count         Int?
+  purchase_count      Int?
+  sale_count          Int?
+  net_accum           Int?
+  total_comic_sets    Int?
+  total_coll_sets     Int?
+  total_mints         Int?
+  total_purchases     Int?
+  total_sales         Int?
+  total_burned        Int?
+  total_mcp_pts       Float?
+  daily_mcp_pts       Float?
+  mcp_level           Int?
+  mcp_rank            String?
+  created_at          DateTime     @default(now())
+  updated_at          DateTime?    @updatedAt
+  wallet              veve_wallets @relation(fields: [wallet_id], references: [id])
 
-  @@index([wallet_id], map: "veve_top_wallet_metrics_wallet_id_fkey")
+  @@index([wallet_id], map: "veve_wallet_metrics_wallet_id_fkey")
 }
 
 model veve_wallet_token_counts {
     id                 Int          @id @default(autoincrement())
-    wallet_id          String?
+    wallet_id          String
     collectible_id     String?
     unique_cover_id    String?
     collectible_count  Int?
     comic_count        Int?
     created_at         DateTime     @default(now())
     updated_at         DateTime?    @updatedAt
-
 }
