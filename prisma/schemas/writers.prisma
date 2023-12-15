@@ -7,3 +7,17 @@ model writers {
   slug        String?       @unique
   veve_comics veve_comics[] @relation("veve_comicsTowriters")
 }
+
+model writers_translations {
+  author_id         String      @id
+  language          Language
+  title             String?
+  content           String?     @db.Text
+  subtitle          String?     @db.Text
+  seo_description   String?     @db.Text
+  seo_keywords      String?     @db.Text
+  seo_title         String?     @db.Text
+  og_title          String?     @db.Text
+  og_description    String?     @db.Text
+  author            writers  @relation(fields: [author_id], references: [author_id])
+}

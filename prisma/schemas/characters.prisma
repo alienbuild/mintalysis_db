@@ -5,5 +5,24 @@ model characters {
   character_id String        @id
   name         String
   slug         String?       @unique
+  image        String?
   veve_comics  veve_comics[] @relation("charactersToveve_comics")
+  translations characters_translations[]
+}
+
+model characters_translations {
+  character_id      String
+  language          Language
+  title             String?
+  content           String?     @db.Text
+  subtitle          String?     @db.Text
+  seo_description   String?     @db.Text
+  seo_keywords      String?     @db.Text
+  seo_title         String?     @db.Text
+  og_title          String?     @db.Text
+  og_description    String?     @db.Text
+  character         characters  @relation(fields: [character_id], references: [character_id])
+
+  @@id([language, character_id])
+  @@index([language])
 }
