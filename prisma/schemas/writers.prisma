@@ -22,6 +22,6 @@ model writers_translations {
   og_description    String?     @db.Text
   author            writers  @relation(fields: [author_id], references: [author_id])
 
-  @@id([author_id, language])
+  @@id([language, author_id])
   @@index([language])
 }
