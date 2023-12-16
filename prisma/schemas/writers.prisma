@@ -25,3 +25,18 @@ model writers_translations {
   @@id([language, author_id])
   @@index([language])
 }
+
+model writers_grails {
+  id              Int         @id @default(autoincrement())
+  title           String
+  description     String?     @db.Text
+  year            Int
+  number          String
+  unique_cover_id String?
+  author_id       String
+  writer          writers  @relation(fields: [author_id], references: [author_id])
+  comic           veve_comics? @relation(fields: [unique_cover_id], references: [unique_cover_id])
+
+  @@index([author_id])
+  @@index([unique_cover_id])
+}
