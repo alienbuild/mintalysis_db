@@ -20,7 +20,7 @@ model writers_translations {
   seo_title         String?     @db.Text
   og_title          String?     @db.Text
   og_description    String?     @db.Text
-  author            writers  @relation(fields: [author_id], references: [author_id])
+  author            writers     @relation(fields: [author_id], references: [author_id])
 
   @@id([language, author_id])
   @@index([language])
