@@ -5,5 +5,39 @@ model artists {
   artist_id   String        @id
   name        String
   slug        String?       @unique
+  image       String?
   veve_comics veve_comics[] @relation("artistsToveve_comics")
+  translations artists_translations[]
+}
+
+model artists_translations {
+  artist_id         String
+  language          Language
+  title             String?
+  content           String?   @db.Text
+  subtitle          String?  @db.Text
+  seo_description   String?  @db.Text
+  seo_keywords      String?  @db.Text
+  seo_title         String?  @db.Text
+  og_title          String?  @db.Text
+  og_description    String?  @db.Text
+  artist            artists  @relation(fields: [artist_id], references: [artist_id])
+
+  @@id([language, artist_id])
+  @@index([language])
+}
+
+model artists_grails {
+  id              Int         @id @default(autoincrement())
+  title           String
+  description     String?     @db.Text
+  year            Int
+  number          String
+  unique_cover_id String?
+  artist_id       String
+  artist          artists  @relation(fields: [artist_id], references: [artist_id])
+  comic           veve_comics? @relation(fields: [unique_cover_id], references: [unique_cover_id])
+
+  @@index([artist_id])
+  @@index([unique_cover_id])
 }
