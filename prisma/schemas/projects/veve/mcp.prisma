@@ -65,13 +65,13 @@ model veve_mcp_staging_sets {
 model veve_mcp_staging_csv_import {
   id               Int        @id @default(autoincrement())
   wallet_id        String?
-  txn_date         DateTime?
+  txn_date         String?
   txn_type         String?
   item_name        String?
-  edition          Int?
+  edition          String?
   buyer_username   String?
   seller_username  String?
-  gem_amount       Float?
+  gem_amount       String?
   created_at       DateTime   @default(now())
 }
 
