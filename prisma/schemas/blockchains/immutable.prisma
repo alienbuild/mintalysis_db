@@ -99,19 +99,15 @@ model imx_withdrawals {
 
 model imx_stats {
   project_id                   String   @unique
-  token_count                  Int?
-  wallet_count                 Int?
-  transaction_count            Int?
-  unique_owners_count          Int?
   mint_count                   Int?
   transfer_count               Int?
+  transaction_count            Int?
+  token_count                  Int?
   comic_count                  Int?
   collectible_count            Int?
-  mint_count_daily             Int?
-  transfer_count_daily         Int?
-  wallet_count_daily           Int?
-  burn_count_total             Int?
-  burn_count_daily             Int?
+  burn_count                   Int?
+  wallet_count                 Int?
+  unique_owners_count          Int?
   createdAt                    DateTime @default(now())
   updatedAt                    DateTime @updatedAt
 }
