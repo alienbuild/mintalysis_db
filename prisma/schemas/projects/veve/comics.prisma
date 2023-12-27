@@ -44,6 +44,7 @@ model veve_comics {
   comic_id                    String?
   unique_holders              BigInt?
   first_public_mint           Int?
+  first_public_rarity_mint    Int?
   mcp_low_ed_limit            Int?
   mcp_rarity_value            Decimal?                   @db.Decimal(10, 2)
   comic_image_url_id          String?                    @db.VarChar(50) @unique

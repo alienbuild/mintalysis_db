@@ -22,21 +22,26 @@ model veve_wallet_metrics {
   prev_rank           Int?         @unique
   rank_change         Int?
   wallet_id           String       @unique
-  token_count         Int?
-  comics_count        Int?
-  collectibles_count  Int?
-  artist_proofs       Int?
-  omi_balance         Float?
-  mints_count         Int?
+  mint_count          Int?
   purchase_count      Int?
   sale_count          Int?
   net_accum           Int?
-  total_comic_sets    Int?
-  total_coll_sets     Int?
-  total_mints         Int?
-  total_purchases     Int?
-  total_sales         Int?
+  transfer_count      Int?
+  total_tokens        Int?
+  total_comics        Int?
+  total_collectibles  Int?
+  total_artist_proofs Int?
+  total_C             Int?
+  total_UC            Int?
+  total_R             Int?
+  total_UR            Int?
+  total_SR            Int?
+  comic_set_count     Int?
+  unique_comic_sets   Int?
+  coll_set_count      Int?
+  unique_coll_sets    Int?
   total_burned        Int?
+  omi_balance         Float?
   total_mcp_pts       Float?
   daily_mcp_pts       Float?
   mcp_level           Int?
