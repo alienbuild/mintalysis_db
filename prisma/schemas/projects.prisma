@@ -2,19 +2,20 @@
 // Projects
 
 model projects {
-  id            String             @id @default(uuid())
-  name          String?            @unique
-  abbr          String?            @unique
-  active        Boolean            @default(false)
-  icon          String?
-  slug          String?            @unique
-  sort          Int                @default(10)
-  tile          String?
-  motiff_url    String?
-  article       article[]
-  notifications notifications[]
-  price_alerts  price_alerts[]
-  metrics       projects_metrics[]
+  id             String             @id @default(uuid())
+  name           String?            @unique
+  abbr           String?            @unique
+  active         Boolean            @default(false)
+  icon           String?
+  slug           String?            @unique
+  sort           Int                @default(10)
+  tile           String?
+  motiff_url     String?
+  article        article[]
+  notifications  notifications[]
+  price_alerts   price_alerts[]
+  metrics        projects_metrics[]
+  newsletters    project_newsletters[]
 }
 
 model projects_metrics {
@@ -35,6 +36,15 @@ model projects_metrics {
   all_time_change Decimal? @db.Decimal(10, 2)
   volume          Decimal? @db.Decimal(10, 2)
   project         projects @relation(fields: [project_id], references: [id])
+}
+
+model project_newsletters {
+  id                      Int                    @id @default(autoincrement())
+  project_id              String
+  subscriber_id           Int
+  projects                projects               @relation(fields: [project_id], references: [id])
+  subscribers             newsletter_subscribers @relation(fields: [subscriber_id], references: [id])
+  @@unique([project_id, subscriber_id])
 }
 
 model UserToprojects {
