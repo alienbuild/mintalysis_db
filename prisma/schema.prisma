@@ -802,8 +802,6 @@ model newsletter_subscribers {
   email               String                @unique
   ip_address          String?
   createdAt           DateTime              @default(now())
-  user_id             String?
-  user                User?                 @relation("UserToNewsletterSubscribers")
   project_newsletters project_newsletters[]
 }
 
@@ -2222,8 +2220,6 @@ model User {
   sent_direct_messages            direct_message[]                 @relation("sender")
   received_direct_messages        direct_message[]                 @relation("receiver")
   channel_messages                channel_message[]
-  newsletter_subscriber_id        Int?                             @unique
-  newsletter_subscriber           newsletter_subscribers?          @relation("UserToNewsletterSubscribers", fields: [newsletter_subscriber_id], references: [id])
   server                          server[]
   server_member                   server_member[]
   ChannelMember                   ChannelMember[]
