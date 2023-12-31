@@ -106,3 +106,16 @@ model veve_collectibles_metrics {
   circulating_supply Decimal?          @db.Decimal(10, 2)
   collectible        veve_collectibles @relation(fields: [collectible_id], references: [collectible_id])
 }
+
+model veve_collectibles_listings {
+    id              Int                    @id @default(autoincrement())
+    collectible_id  String
+    listing_id      String?
+    issue_number    Int?
+    listing_type    String
+    price           Decimal?
+    seller_name     String?
+    seller_id       String?
+    ending_at       DateTime?
+    bid_count       Int?
+}

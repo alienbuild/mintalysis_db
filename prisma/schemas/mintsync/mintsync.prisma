@@ -56,10 +56,10 @@ model channel {
 }
 
 model server_member {
-  userId   String
-  serverId Int
-  user     User     @relation(fields: [userId], references: [id])
-  server   server   @relation(fields: [serverId], references: [id])
+  userId    String
+  serverId  Int
+  user      User     @relation(fields: [userId], references: [id])
+  server    server   @relation(fields: [serverId], references: [id])
   @@id([userId, serverId])
 }
 
@@ -79,6 +79,37 @@ model channel_read_receipt {
   user      User     @relation(fields: [userId], references: [id])
 
   @@id([userId, channelId])
+}
+
+model role {
+  id          Int               @id @default(autoincrement())
+  name        String
+  description String
+  users_roles UserToRoles[]
+}
+
+model UserToRoles {
+  id     Int      @id @default(autoincrement())
+  userId String
+  roleId Int
+  user   User     @relation("user_to_roles", fields: [userId], references: [id])
+  role   role     @relation(fields: [roleId], references: [id])
+  @@unique([userId, roleId])
+}
+
+model user_badges {
+  user_id   String
+  badge_id  Int
+  user      User   @relation(fields: [user_id], references: [id])
+  badge     badge  @relation(fields: [badge_id], references: [id])
+  @@id([user_id, badge_id])
+}
+
+model badge {
+  id          Int               @id @default(autoincrement())
+  name        String
+  description String
+  users       user_badges[]
 }
 
 enum ChannelType {
