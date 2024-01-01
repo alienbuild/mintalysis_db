@@ -47,13 +47,15 @@ model server {
 }
 
 model channel {
-  id      Int      @id @default(autoincrement())
-  slug    String?  @unique
-  name    String
-  type    ChannelType   @default(TEXT)
-  server_id Int
-  server  server   @relation(fields: [server_id], references: [id])
-  messages channel_message[]
+  id                            Int             @id @default(autoincrement())
+  slug                          String?         @unique
+  name                          String
+  type                          ChannelType     @default(TEXT)
+  topic                         String?
+  slowModeDelay                 Int?
+  server_id                     Int
+  server                        server          @relation(fields: [server_id], references: [id])
+  messages                      channel_message[]
 }
 
 model server_member {
@@ -120,6 +122,17 @@ model badge {
   name        String
   description String
   users       user_badges[]
+}
+
+model Mute {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  serverId   Int
+  channelId  Int?
+  muteEnd    DateTime?
+  user       User     @relation(fields: [userId], references: [id])
+  server     Server   @relation(fields: [serverId], references: [id])
+  channel    Channel? @relation(fields: [channelId], references: [id])
 }
 
 enum ChannelType {
