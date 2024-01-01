@@ -126,13 +126,13 @@ model badge {
 
 model Mute {
   id         Int      @id @default(autoincrement())
-  userId     Int
+  userId     String
   serverId   Int
   channelId  Int?
   muteEnd    DateTime?
   user       User     @relation(fields: [userId], references: [id])
-  server     Server   @relation(fields: [serverId], references: [id])
-  channel    Channel? @relation(fields: [channelId], references: [id])
+  server     server   @relation(fields: [serverId], references: [id])
+  channel    channel? @relation(fields: [channelId], references: [id])
 }
 
 enum ChannelType {
