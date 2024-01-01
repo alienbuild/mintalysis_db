@@ -23,3 +23,5 @@ readDirectory(schemasDirectory);
 let mainSchemaContent = fs.readFileSync(mainSchemaPath, 'utf-8');
 mainSchemaContent = mainSchemaContent.replace(/\/\/ BEGIN_MODELS([\s\S]*)\/\/ END_MODELS/, `// BEGIN_MODELS${schemasContent}\n// END_MODELS`);
 fs.writeFileSync(mainSchemaPath, mainSchemaContent);
+
+// LK
