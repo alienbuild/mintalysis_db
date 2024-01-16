@@ -53,3 +53,6 @@ model veve_imx_status {
   updatedAt      DateTime? @updatedAt
 }
 
+model numbers {
+  number    Int      @id
+}
