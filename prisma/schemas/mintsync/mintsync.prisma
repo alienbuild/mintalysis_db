@@ -109,6 +109,38 @@ model UserToRoles {
   @@unique([userId, roleId])
 }
 
+model ChannelRole {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  channelId Int
+  role      ChannelRoleType
+  user      User     @relation(fields: [userId], references: [id])
+  channel   channel  @relation(fields: [channelId], references: [id])
+
+  @@unique([userId, channelId])
+}
+
+enum ChannelRoleType {
+  HOST
+  CO_HOST
+  SPEAKER
+  LISTENER
+}
+
+model speak_request {
+    id        Int      @id @default(autoincrement())
+    userId    String
+    channelId Int
+    status    SpeakRequestStatus
+}
+
+enum SpeakRequestStatus {
+    PENDING
+    APPROVED
+    DENIED
+}
+
+
 model user_badges {
   user_id   String
   badge_id  Int
