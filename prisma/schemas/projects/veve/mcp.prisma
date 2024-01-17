@@ -45,6 +45,7 @@ model veve_mcp_completed_sets {
   id               Int        @id @default(autoincrement())
   wallet_id        String        
   series_id        String
+  nbr_of_items     Int?
   date_completed   DateTime
   completed_count  Int?
   date_set_broken  DateTime?
