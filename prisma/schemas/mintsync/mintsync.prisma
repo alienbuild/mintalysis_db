@@ -73,6 +73,7 @@ model ChannelMember {
   channelId Int
   user      User    @relation(fields: [userId], references: [id])
   channel   channel @relation(fields: [channelId], references: [id])
+  channelRole ChannelRole?
 
   @@id([userId, channelId])
 }
