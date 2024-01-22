@@ -16,7 +16,7 @@ model veve_wallets {
   lgcy_veve_username      String?
   active                  Boolean?                  @default(false)
   has_kyc                 Boolean?                  @default(false)
-  has_kyc_2023            Boolean?                  @default(false)
+  is_pre_imx              Boolean?                  @default(false)
   mintalysis_note         String?
   veve_leaderboard        veve_leaderboard[]
   veve_tokens             veve_tokens[]

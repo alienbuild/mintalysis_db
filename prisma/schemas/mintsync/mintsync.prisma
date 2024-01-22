@@ -68,16 +68,16 @@ model server_member {
   @@id([userId, serverId])
 }
 
-model ChannelMember {
-  userId    String
-  channelId Int
-  user      User    @relation(fields: [userId], references: [id])
-  channel   channel @relation(fields: [channelId], references: [id])
-  role      role?   @relation(fields: [roleId], references: [id])
-  roleId    Int?    // Optional, can be null if the member has no specific role
+// model ChannelMember {
+//   userId    String
+//   channelId Int
+//   user      User    @relation(fields: [userId], references: [id])
+//   channel   channel @relation(fields: [channelId], references: [id])
+//   role      role    @relation(fields: [roleId], references: [id])
+//   roleId    Int    // Optional, can be null if the member has no specific role
 
-  @@id([userId, channelId])
-}
+//   @@id([userId, channelId])
+// }
 
 model channel_read_receipt {
   userId    String
