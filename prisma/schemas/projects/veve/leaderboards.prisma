@@ -67,12 +67,13 @@ model veve_wallet_token_counts {
 model veve_x_tracker {
     id           Int          @id @default(autoincrement())
     wallet_id    String
-    date         DateTime?
-    created_at   DateTime     @default(now())
+    date         DateTime     @db.Date
     sales        Int?
     purchases    Int?
     mints        Int?
     token_count  Int?
+    omi_change   Float?
+    created_at   DateTime     @default(now())
     wallet       veve_wallets @relation(fields: [wallet_id], references: [id])
     
     @@index([wallet_id], map: "veve_x_tracker_wallet_id_fkey")
