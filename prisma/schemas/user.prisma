@@ -10,10 +10,13 @@ model User {
   role                            Role                             @default(BASIC)
   username                        String?                          @unique
   avatar                          String?
+  collector_type                  CollectorType                    @default(GUEST)
   last_seen                       DateTime?                        @default(now())
   activated                       Boolean                          @default(false)
   stripe_customer_id              String?
   onboarded                       Boolean                          @default(false)
+  projects                        UserToProjects[]
+  totalValuation                  Decimal?                           @db.Decimal(20, 2)
   name                            String?
   impressions                     Int?
   viewed_profile                  Int?
@@ -90,4 +93,11 @@ model profile {
   veve_wallet_address  String?
   mcfarlane_wallets    mcfarlane_wallets?
   users                User               @relation(fields: [user_id], references: [id])
+}
+
+enum CollectorType {
+  PHYSICAL_COLLECTOR
+  DIGITAL_COLLECTOR
+  HYBRID
+  GUEST
 }
