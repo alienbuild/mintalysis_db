@@ -10,8 +10,6 @@ model projects {
   icon                      String?
   slug                      String?            @unique
   sort                      Int                @default(10)
-  valuation                 Decimal?           @db.Decimal(20, 2)
-  valuation_with_fees       Decimal?           @db.Decimal(20, 2)
   tile                      String?
   motiff_url                String?
   article                   article[]
@@ -51,10 +49,12 @@ model project_newsletters {
 }
 
 model UserToProjects {
-  userId       String
-  collectionId String
-  user         User         @relation(fields: [userId], references: [id])
-  project      projects   @relation(fields: [collectionId], references: [id])
+  userId                  String
+  collectionId            String
+  user                    User         @relation(fields: [userId], references: [id])
+  project                 projects   @relation(fields: [collectionId], references: [id])
+  valuation               Decimal?  @db.Decimal(20, 2)
+  valuation_with_fees     Decimal?  @db.Decimal(20, 2)
 
   @@id([userId, collectionId])
 }
