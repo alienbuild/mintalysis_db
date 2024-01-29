@@ -56,3 +56,8 @@ model veve_imx_status {
 model numbers {
   number    Int      @id
 }
+
+model meili_script_logs {
+  script_name    String   @id
+  last_run_date  DateTime
+}
