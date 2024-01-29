@@ -34,6 +34,7 @@ model veve_collectibles {
   brand_id                             String?
   licensor_id                          String?
   series_id                            String?
+  project_id                           String?
   drop_method                          String?
   is_free                              Boolean?                         @default(false)
   total_store_allocation               Int?
@@ -60,11 +61,13 @@ model veve_collectibles {
   //veve_tokens                          veve_tokens[]                    @relation("veve_collectiblesToveve_tokens")
   veveTokenCollectibles                veveTokenCollectible[]
   tags                                 veve_collectible_tags[]
+  project                              projects?                        @relation(fields: [project_id], references: [id])
 
   @@index([brand_id], map: "collectibles_brand_id_fkey")
   @@index([licensor_id], map: "collectibles_licensor_id_fkey")
   @@index([name], map: "collectibles_name_idx")
   @@index([series_id], map: "collectibles_series_id_fkey")
+  @@index([project_id], map: "veve_collectibles_project_id_fkey")
 }
 
 model veve_collectibles_translations {
