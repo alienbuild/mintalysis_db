@@ -17,6 +17,7 @@ model projects {
   price_alerts              price_alerts[]
   metrics                   projects_metrics[]
   newsletters               project_newsletters[]
+  veveCollectibles          veve_collectibles[]
 }
 
 model projects_metrics {
