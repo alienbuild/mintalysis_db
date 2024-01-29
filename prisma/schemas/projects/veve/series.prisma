@@ -75,12 +75,3 @@ model veve_series_metrics {
   circulating_supply Decimal?    @db.Decimal(10, 2)
   series             veve_series @relation(fields: [series_id], references: [series_id])
 }
-
-model veve_collectible_tags {
-  tag_id          Int               @id @default(autoincrement())
-  name            String
-  collectible_id  String
-  collectible     veve_collectibles @relation(fields: [collectible_id], references: [collectible_id])
-
-  @@index([collectible_id], name: "idx_collectible_tags")
-}
