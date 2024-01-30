@@ -2,11 +2,13 @@
 // Characters
 
 model characters {
-  character_id String        @id
+  character_id String                       @id
   name         String
-  slug         String?       @unique
+  slug         String?                      @unique
   image        String?
-  veve_comics  veve_comics[] @relation("charactersToveve_comics")
+  createdAt    DateTime                     @default(now())
+  updatedAt    DateTime?                    @updatedAt
+  veve_comics  veve_comics[]                @relation("charactersToveve_comics")
   translations characters_translations[]
 }
 
