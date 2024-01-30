@@ -18,6 +18,7 @@ model projects {
   metrics                   projects_metrics[]
   newsletters               project_newsletters[]
   veveCollectibles          veve_collectibles[]
+  veveComics                veve_comics[]
 }
 
 model projects_metrics {
