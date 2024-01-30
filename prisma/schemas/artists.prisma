@@ -2,11 +2,13 @@
 // Artists
 
 model artists {
-  artist_id   String        @id
+  artist_id   String                        @id
   name        String
-  slug        String?       @unique
+  slug        String?                       @unique
   image       String?
-  veve_comics veve_comics[] @relation("artistsToveve_comics")
+  createdAt   DateTime                      @default(now())
+  updatedAt   DateTime?                     @updatedAt
+  veve_comics veve_comics[]                 @relation("artistsToveve_comics")
   translations artists_translations[]
 }
 

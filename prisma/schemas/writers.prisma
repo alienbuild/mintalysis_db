@@ -2,10 +2,12 @@
 // Writers
 
 model writers {
-  author_id    String        @id
+  author_id    String                       @id
   name         String
-  slug         String?       @unique
-  veve_comics  veve_comics[] @relation("veve_comicsTowriters")
+  slug         String?                      @unique
+  createdAt   DateTime                      @default(now())
+  updatedAt   DateTime?                     @updatedAt
+  veve_comics  veve_comics[]                @relation("veve_comicsTowriters")
   translations writers_translations[]
 }
 
