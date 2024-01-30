@@ -59,9 +59,12 @@ model veve_comics {
   characters                  characters[]               @relation("charactersToveve_comics")
   writers                     writers[]                  @relation("veve_comicsTowriters")
   veveTokenComics             veveTokenComic[]
+  project_id                  String?
+  project                     projects?                  @relation(fields: [project_id], references: [id])
 
   @@index([unique_cover_id], map: "unique_cover_id")
   @@index([comic_image_url_id], map: "comic_image_url_id")
+  @@index([project_id], map: "veve_comics_project_id_fkey")
 }
 
 model veve_comics_translations {
