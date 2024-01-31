@@ -52,7 +52,7 @@ model veve_collectibles {
   veve_held_edition_count              Int?
   licensor_held_edition_count          Int?
   tmp_veve_tokens_collectibles         tmp_veve_tokens_collectibles[]
-  brand                                veve_brands?                     @relation(fields: [brand_id], references: [brand_id])
+  brand                                brands?                     @relation(fields: [brand_id], references: [brand_id])
   licensor                             veve_licensors?                  @relation(fields: [licensor_id], references: [licensor_id])
   series                               veve_series?                     @relation(fields: [series_id], references: [series_id])
   metrics                              veve_collectibles_metrics?
