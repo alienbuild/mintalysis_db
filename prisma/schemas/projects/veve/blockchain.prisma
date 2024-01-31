@@ -76,7 +76,7 @@ model veve_tokens {
   tag                String?
   veve_brands        brands?        @relation(fields: [brand_id], references: [brand_id])
   veve_wallets       veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
-  veve_licensors     veve_licensors?     @relation(fields: [licensor_id], references: [licensor_id])
+  veve_licensors     licensors?     @relation(fields: [licensor_id], references: [licensor_id])
   veve_series        veve_series?        @relation(fields: [series_id], references: [series_id])
   veveTokenCollectibles  veveTokenCollectible[]
   veveTokenComics        veveTokenComic[]
