@@ -1,7 +1,7 @@
 // schemas/projects/veve/licensors.prisma
 // Veve Licensors
 
-model veve_licensors {
+model licensors {
   licensor_id                                String                   @id
   name                                       String?
   description                                String?                  @db.Text
@@ -20,27 +20,6 @@ model veve_licensors {
   square_image_med_resolution_url            String?
   square_image_thumbnail_url                 String?
   square_image_url                           String?
-  theme_background_image_direction           String?
-  theme_background_image_full_resolution_url String?
-  theme_background_image_high_resolution_url String?
-  theme_background_image_low_resolution_url  String?
-  theme_background_image_med_resolution_url  String?
-  theme_background_image_thumbnail_url       String?
-  theme_background_image_url                 String?
-  theme_footer_image_direction               String?
-  theme_footer_image_full_resolution_url     String?
-  theme_footer_image_high_resolution_url     String?
-  theme_footer_image_low_resolution_url      String?
-  theme_footer_image_med_resolution_url      String?
-  theme_footer_image_thumbnail_url           String?
-  theme_footer_image_url                     String?
-  theme_logo_image_direction                 String?
-  theme_logo_image_full_resolution_url       String?
-  theme_logo_image_high_resolution_url       String?
-  theme_logo_image_low_resolution_url        String?
-  theme_logo_image_med_resolution_url        String?
-  theme_logo_image_thumbnail_url             String?
-  theme_logo_image_url                       String?
   slug                                       String?                  @unique
   veve_collectibles                          veve_collectibles[]
   veve_tokens                                veve_tokens[]
@@ -65,5 +44,5 @@ model veve_licensors_metrics {
   all_time_change    Decimal?       @db.Decimal(10, 2)
   volume             Decimal?       @db.Decimal(10, 2)
   circulating_supply Decimal?       @db.Decimal(10, 2)
-  licensor           veve_licensors @relation(fields: [licensor_id], references: [licensor_id])
+  licensor           licensors @relation(fields: [licensor_id], references: [licensor_id])
 }
