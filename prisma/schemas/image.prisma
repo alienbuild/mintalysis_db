@@ -1,0 +1,13 @@
+model image {
+  id                String               @id @default(uuid())
+  url               String
+  title             String?
+  description       String?
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  collectible_id    String
+
+  collectible       physical_collectible @relation("CollectibleImages", fields: [collectible_id], references: [id])
+
+  @@index([collectible_id], name: "idx_image_collectible_id")
+}

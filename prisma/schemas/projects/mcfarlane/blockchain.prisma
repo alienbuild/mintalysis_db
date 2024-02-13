@@ -9,8 +9,8 @@ model mcfarlane_wallets {
   tagsId              Int?
   first_activity_date DateTime?
   last_activity_date  DateTime?
-  tags                wallet_tags? @relation(fields: [tagsId], references: [id])
   user                profile?     @relation(fields: [user_id], references: [user_id])
+  mcfarlane_wallet_tags mcfarlane_wallet_tags[]
 
   @@index([tagsId], map: "mcfarlane_wallets_tagsId_fkey")
 }

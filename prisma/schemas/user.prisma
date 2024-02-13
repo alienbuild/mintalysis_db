@@ -45,6 +45,7 @@ model User {
   channel_messages                channel_message[]
   UserToRoles                     UserToRoles[]                    @relation("user_to_roles")
 
+
   @@index([email], map: "email")
   @@index([username], map: "username")
   @@index([stripe_customer_id], map: "stripe_customer_id")
@@ -89,9 +90,9 @@ model profile {
   updatedAt            DateTime
   user_id              String             @unique
   onboarded            Boolean            @default(false)
-  veve_wallet_imported Boolean            @default(false)
-  veve_wallet_address  String?
-  mcfarlane_wallets    mcfarlane_wallets?
+//  veve_wallet_imported Boolean            @default(false)
+//  veve_wallet_address  String?
+//  mcfarlane_wallets    mcfarlane_wallets?
   users                User               @relation(fields: [user_id], references: [id])
 }
 

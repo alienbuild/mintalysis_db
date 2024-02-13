@@ -20,12 +20,11 @@ model veve_wallets {
   mintalysis_note         String?
   veve_leaderboard        veve_leaderboard[]
   veve_tokens             veve_tokens[]
-  wallet_tags             wallet_tags?              @relation(fields: [tagsId], references: [id])
   veve_wallets_valuations veve_wallets_valuations[]
+  veve_wallet_tags        veve_wallet_tags[]
 
   @@index([last_activity_date])
   @@index([first_activity_date])
-  @@index([tagsId], map: "veve_wallets_tagsId_fkey")
   @@index([id, user_id, veve_username])
 }
 
@@ -92,12 +91,13 @@ model veve_tokens {
 }
 
 model veveTokenCollectible {
-  token_id        Int
-  collectible_id  String
-  veve_tokens    veve_tokens   @relation(fields: [token_id], references: [token_id])
-  veve_collectibles veve_collectibles @relation(fields: [collectible_id], references: [collectible_id])
+  token_id          Int
+  collectible_id    String?
+  veve_tokens       veve_tokens @relation(fields: [token_id], references: [token_id])
+  veve_collectibles veve_collectibles? @relation(fields: [collectible_id], references: [collectible_id], onDelete: SetNull, onUpdate: SetNull)
 
-  @@id([token_id, collectible_id])
+  @@id([token_id])
+  @@unique([token_id, collectible_id])
 }
 
 model veveTokenComic {
