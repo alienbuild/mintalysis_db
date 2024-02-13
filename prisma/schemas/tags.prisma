@@ -7,3 +7,45 @@ model wallet_tags {
   mcfarlane_wallets mcfarlane_wallets[]
   veve_wallets      veve_wallets[]
 }
+
+model tag {
+  id                    String @id @default(uuid())
+  name                  String
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+  physical_collectibles physical_collectible_tags[]
+  mcfarlane_wallets     mcfarlane_wallet_tags[]
+  veve_wallets          veve_wallet_tags[]
+}
+
+model physical_collectible_tags {
+  collectible_id String
+  createdAt      DateTime @default(now())
+  visibility     TagVisibility @default(PUBLIC)
+  tag_id         String
+  tag            tag @relation(fields: [tag_id], references: [id])
+  physical_collectible physical_collectible @relation(fields: [collectible_id], references: [id])
+
+  @@id([collectible_id, tag_id])
+}
+
+model mcfarlane_wallet_tags {
+  wallet_id String
+  visibility TagVisibility @default(PUBLIC)
+  tag_id    String
+  tag       tag @relation(fields: [tag_id], references: [id])
+  wallet    mcfarlane_wallets @relation(fields: [wallet_id], references: [id])
+
+  @@id([wallet_id, tag_id])
+}
+
+model veve_wallet_tags {
+  wallet_id  String
+  visibility TagVisibility @default(PUBLIC)
+  tag_id     String
+  tag        tag @relation(fields: [tag_id], references: [id])
+  wallet     veve_wallets @relation(fields: [wallet_id], references: [id])
+
+  @@id([wallet_id, tag_id])
+}
+

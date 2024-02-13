@@ -1,0 +1,9 @@
+model recent_search {
+    id           Int      @id @default(autoincrement())
+    user_id      String
+    search_term  String
+    timestamp    DateTime @default(now())
+    user         User     @relation(fields: [user_id], references: [id])
+
+@@index([user_id], name: "idx_recent_search_user_id")
+}

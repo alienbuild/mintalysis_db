@@ -123,3 +123,8 @@ enum MessageType {
   EMOJI
   GIF
 }
+
+enum TagVisibility {
+  PUBLIC
+  PRIVATE
+}

@@ -1,0 +1,38 @@
+// schemas/collectibles.prisma
+// Users Collectibles
+
+model user_collection {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  image_url   String?
+  user_id     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  collectibles physical_collectible[]
+}
+
+model physical_collectible {
+  id                        String   @id @default(uuid())
+  name                      String
+  description               String?
+  collection_id             String
+  category                  String?
+  notes                     String?
+  condition                 String?
+  acquired_at               DateTime?
+  origin                    String?
+  release_year              Int?
+  manufacturer              String?
+  images                    image[]  @relation("CollectibleImages")
+  acquisition_price         Decimal? @db.Decimal(10, 2)
+  current_estimated_value   Decimal? @db.Decimal(10, 2)
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  tags                      physical_collectible_tags[]
+  is_public                 Boolean  @default(false)
+  storage_location          String?
+
+  collection user_collection @relation(fields: [collection_id], references: [id])
+}
