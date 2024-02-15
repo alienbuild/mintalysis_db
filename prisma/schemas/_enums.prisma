@@ -1,6 +1,13 @@
 // schemas/_enums.prisma
 // Enum and Setting Tables
 
+enum Currency {
+  USD
+  ETH
+  BTC
+  OMI
+}
+
 enum Language {
   EN
   ES
@@ -127,4 +134,15 @@ enum MessageType {
 enum TagVisibility {
   PUBLIC
   PRIVATE
+}
+
+enum Theme {
+  LIGHT
+  DARK
+}
+
+enum Layout {
+  STANDARD
+  COMPACT
+  DENSE
 }
