@@ -53,6 +53,20 @@ model User {
   @@map("users")
 }
 
+model user_preferences {
+  id                   Int       @id                @default(autoincrement())
+  user_id              String    @unique
+  display_currency     Currency  @default(USD)
+  theme                Theme     @default(LIGHT)
+  enable_notifications Boolean   @default(true)
+  language             Language  @default(EN)
+  layout_preference    Layout    @default(STANDARD)
+
+  user                 User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("user_preferences")
+}
+
 model users_preferences_accessibility {
   id                Int          @id @default(autoincrement())
   screen_reader     Boolean      @default(false)
