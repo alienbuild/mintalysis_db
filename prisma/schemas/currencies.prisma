@@ -2,6 +2,6 @@ model currency_rate {
   id         Int      @id @default(autoincrement())
   ethToUsd   Decimal  @db.Decimal(10, 2)
   btcToUsd   Decimal  @db.Decimal(10, 2)
-  omiToUsd   Decimal  @db.Decimal(10, 2)
+  omiToUsd   Decimal  @db.Decimal(18, 8)
   updatedAt  DateTime @updatedAt
 }
