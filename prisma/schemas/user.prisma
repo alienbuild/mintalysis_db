@@ -113,22 +113,3 @@ model profile {
   onboarded            Boolean            @default(false)
   users                User               @relation(fields: [user_id], references: [id])
 }
-
-model subscription_plan {
- id                 Int      @id @default(autoincrement())
- name               String
- price              Decimal  @db.Decimal(10, 2)
- currency           String
- interval           String
- description        String?
- features           Json?
- stripe_product_id  String
- stripe_price_id    String
-}
-
-enum CollectorType {
-  PHYSICAL_COLLECTOR
-  DIGITAL_COLLECTOR
-  HYBRID
-  GUEST
-}
