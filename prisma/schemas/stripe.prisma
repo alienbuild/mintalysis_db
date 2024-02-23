@@ -54,12 +54,12 @@ model feature_flag {
   enabled       Boolean           @default(false)
   usage_limit   Int?              // Null implies no limit
   limit_period  LimitPeriod?           // "daily", "weekly", "monthly", etc.
-  plans         Subscription_plan[] @relation(references: [id])
+  plans         subscription_plan[]
 }
 
 model user_feature_usage {
   id                Int             @id @default(autoincrement())
-  user_id           Int
+  user_id           String
   feature_flag_id   Int
   timestamp         DateTime        @default(now())
   usage_count       Int             @default(1)
