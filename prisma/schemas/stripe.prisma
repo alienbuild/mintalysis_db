@@ -46,3 +46,30 @@ model payment {
 
   @@map("payments")
 }
+
+model feature_flag {
+  id            Int               @id @default(autoincrement())
+  name          String
+  description   String?
+  enabled       Boolean           @default(false)
+  usage_limit   Int?              // Null implies no limit
+  limit_period  LimitPeriod?           // "daily", "weekly", "monthly", etc.
+  plans         subscription_plan[]
+}
+
+model user_feature_usage {
+  id                Int             @id @default(autoincrement())
+  user_id           String
+  feature_flag_id   Int
+  timestamp         DateTime        @default(now())
+  usage_count       Int             @default(1)
+
+  user              User            @relation(fields: [user_id], references: [id])
+  feature_flag      feature_flag    @relation(fields: [feature_flag_id], references: [id])
+}
+
+enum LimitPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+}

@@ -49,6 +49,8 @@ model User {
   received_direct_messages        direct_message[]                 @relation("receiver")
   channel_messages                channel_message[]
   UserToRoles                     UserToRoles[]                    @relation("user_to_roles")
+  affiliate_account               rewardful_affiliate_account?     @relation(fields: [affiliate_account_id], references: [id])
+  affiliate_account_id            Int?
 
 
   @@index([email], map: "email")
