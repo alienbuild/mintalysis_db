@@ -59,7 +59,7 @@ model rewardful_payout {
   id                    Int                           @id @default(autoincrement())
   affiliate_account_id  Int
   amount                Float
-  status                String   // e.g., "pending", "paid"
+  status                String
   payout_date           DateTime
   affiliate_account     rewardful_affiliate_account   @relation(fields: [affiliate_account_id], references: [id])
 }
