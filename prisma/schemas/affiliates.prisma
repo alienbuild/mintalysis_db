@@ -1,24 +1,25 @@
 model rewardful_affiliate_account {
-  id                Int                             @id @default(autoincrement())
-  userId            String                          @unique
-  affiliate_id      String                          @unique
-  status            String
-  createdAt         DateTime                        @default(now())
-  updatedAt         DateTime                        @updatedAt
-  referral_links    rewardful_referral_link[]
-  conversions       rewardful_conversion[]
+  id                    Int                             @id @default(autoincrement())
+  userId                String                          @unique
+  affiliate_id          String                          @unique
+  status                String
+  promotional_channels  Json?
+  createdAt             DateTime                        @default(now())
+  updatedAt             DateTime                        @updatedAt
+  referral_links        rewardful_referral_link[]
+  conversions           rewardful_conversion[]
 }
 
 model rewardful_affiliate {
-  id                Int                             @id @default(autoincrement())
-  user_id           String                          @unique
-  email             String
-  first_name        String?
-  last_name         String?
-  rewardful_id      String                          @unique
-  createdAt         DateTime                        @default(now())
-  updatedAt         DateTime                        @updatedAt
-  referrals         rewardful_affiliate_referral[]
+  id                    Int                             @id @default(autoincrement())
+  user_id               String                          @unique
+  email                 String
+  first_name            String?
+  last_name             String?
+  rewardful_id          String                          @unique
+  createdAt             DateTime                        @default(now())
+  updatedAt             DateTime                        @updatedAt
+  referrals             rewardful_affiliate_referral[]
 }
 
 model rewardful_affiliate_referral {
@@ -43,10 +44,14 @@ model rewardful_referral_link {
 model rewardful_conversion {
   id                    Int                         @id @default(autoincrement())
   affiliate_account_id  Int
-  saleAmount            Float
+  sale_amount            Float
   commission_amount     Float
   createdAt             DateTime                    @default(now())
   affiliate_account     rewardful_affiliate_account @relation(fields: [affiliate_account_id], references: [id])
+  product               String
+  customer_identifier   String?
+  discount_applied      Float?                      @default(0)
+  location              String?
 }
 
 model rewardful_payout {
