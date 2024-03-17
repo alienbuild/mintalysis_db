@@ -27,7 +27,7 @@ model tmp_veve_tokens_collectibles {
 }
 
 model tmp_veve_transactions {
-  transaction_id           String?
+  transaction_id           String?  
   transfer_id              String?
   createdAt                DateTime?
   amount_usd               Float?
@@ -115,7 +115,7 @@ model tmp_wallet_merges {
 }
 
 model tmp_veve_transfers {
-  id        BigInt?
+  id        BigInt? @id
   from_user String? @db.Text
   to_user   String? @db.Text
   timestamp String? @db.Text
@@ -127,7 +127,7 @@ model tmp_veve_transfers {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model tmp_veve_mints {
-  id        BigInt?
+  id        BigInt? @id
   user      String? @db.Text
   timestamp String? @db.Text
   token_id  BigInt?
