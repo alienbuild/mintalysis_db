@@ -58,8 +58,7 @@ model veve_wallet_token_counts {
     wallet_id          String
     collectible_id     String?
     unique_cover_id    String?
-    collectible_count  Int?
-    comic_count        Int?
+    count              Int?
     created_at         DateTime     @default(now())
     updated_at         DateTime?    @updatedAt
 }
