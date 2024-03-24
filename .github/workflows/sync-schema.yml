@@ -31,16 +31,16 @@ jobs:
        # git commit -m 'Update Prisma Schema'
        # git push
     
-    - name: Copy Schema to Backend Repository
-      run: |
-        git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_backend.git
-        cp prisma/schema.prisma mintalysis_backend/prisma/schema.prisma
-        cd mintalysis_backend
-        git config user.name 'GitHub Actions'
-        git config user.email 'actions@github.com'
-        git add .
-        git commit -m 'Update Prisma Schema'
-        git push
+    #- name: Copy Schema to Backend Repository
+    #  run: |
+    #    git clone https://x-access-token:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/alienbuild/mintalysis_backend.git
+    #    cp prisma/schema.prisma mintalysis_backend/prisma/schema.prisma
+    #    cd mintalysis_backend
+    #    git config user.name 'GitHub Actions'
+    #    git config user.email 'actions@github.com'
+    #    git add .
+    #    git commit -m 'Update Prisma Schema'
+    #    git push
 
     - name: Copy Schema to Services Repository
       run: |
