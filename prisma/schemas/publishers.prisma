@@ -1,0 +1,8 @@
+model publishers {
+    id                                String                   @id
+    name                              String?
+    description                       String?                  @db.Text
+    slug                              String?                  @unique
+    veve_market_fee                   Decimal?                 @db.Decimal(10, 3)
+    comics                            comics[]
+}
