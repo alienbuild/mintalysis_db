@@ -104,3 +104,11 @@ model veve_comic_tags {
 
   @@index([unique_cover_id], name: "idx_comic_tags")
 }
+
+model veve_comics_physical_sales {
+  unique_cover_id    String            @id
+  high              Float?             @default(0)
+  low               Float?             @default(0)
+  source            String?
+  comic             veve_comics        @relation(fields: [unique_cover_id], references: [unique_cover_id])
+}
