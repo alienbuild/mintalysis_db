@@ -8,6 +8,7 @@ model artists {
   image       String?
   createdAt   DateTime                      @default(now())
   updatedAt   DateTime?                     @updatedAt
+  comics      comics                        @relation("artistsTocomics")
   veve_comics veve_comics[]                 @relation("artistsToveve_comics")
   translations artists_translations[]
 }
@@ -29,15 +30,17 @@ model artists_translations {
   @@index([language])
 }
 
+// TODO: Link noteable artist comics to comics instead of veve_comics
+
 model artists_grails {
-  id              Int         @id @default(autoincrement())
+  id              Int          @id @default(autoincrement())
   title           String
-  description     String?     @db.Text
+  description     String?      @db.Text
   year            Int
   number          String
   unique_cover_id String?
   artist_id       String
-  artist          artists  @relation(fields: [artist_id], references: [artist_id])
+  artist          artists      @relation(fields: [artist_id], references: [artist_id])
   comic           veve_comics? @relation(fields: [unique_cover_id], references: [unique_cover_id])
 
   @@index([artist_id])

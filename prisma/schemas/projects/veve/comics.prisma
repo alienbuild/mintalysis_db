@@ -3,32 +3,32 @@
 
 model veve_comics {
   unique_cover_id             String                     @id
-  name                        String
+  name                        String                               // TODO: DELETE
   rarity                      String?
-  description                 String?                    @db.Text
+  description                 String?                    @db.Text // TODO: DELETE
   comic_series_id             String?
   drop_date                   DateTime?
   store_price                 Decimal?                   @db.Decimal(10, 2)
-  publisher_id                String?
+  publisher_id                String?                    // TODO: DELETE ?
   market_fee                  Decimal?                   @db.Decimal(10, 3)
   createdAt                   DateTime                   @default(now())
   updatedAt                   DateTime
-  comic_number                Int?
+  comic_number                Int?                       // TODO: DELETE
   drop_method                 String?
   is_free                     Boolean?                   @default(false)
   is_unlimited                Boolean?                   @default(false)
-  page_count                  Int?
-  start_year                  Int?
+  page_count                  Int?                       // TODO: DELETE
+  start_year                  Int?                       // TODO: DELETE
   total_available             Int?
   total_issued                Int?
   total_store_allocation      Int?
-  image_direction             String?
-  image_full_resolution_url   String?
-  image_high_resolution_url   String?
-  image_low_resolution_url    String?
-  image_med_resolution_url    String?
-  image_thumbnail             String?
-  minimum_age                 Int?
+  image_direction             String?                    // TODO: DELETE
+  image_full_resolution_url   String?                    // TODO: DELETE
+  image_high_resolution_url   String?                    // TODO: DELETE
+  image_low_resolution_url    String?                    // TODO: DELETE
+  image_med_resolution_url    String?                    // TODO: DELETE
+  image_thumbnail             String?                    // TODO: DELETE
+  minimum_age                 Int?                       // TODO: DELETE
   slug                        String?                    @unique
   comic_id                    String?
   unique_holders              BigInt?
@@ -44,9 +44,9 @@ model veve_comics {
   mintalysis_note             String?
   translations                veve_comics_translations[]
   veve_watchlist              veve_watchlist[]
-  artists                     artists[]                  @relation("artistsToveve_comics")
-  characters                  characters[]               @relation("charactersToveve_comics")
-  writers                     writers[]                  @relation("veve_comicsTowriters")
+  artists                     artists[]                  @relation("artistsToveve_comics")          // TODO: DELETE
+  characters                  characters[]               @relation("charactersToveve_comics")       // TODO: DELETE
+  writers                     writers[]                  @relation("veve_comicsTowriters")          // TODO: DELETE
   veveTokenComics             veveTokenComic[]
   project_id                  String?
   project                     projects?                  @relation(fields: [project_id], references: [id])
@@ -96,6 +96,7 @@ model veve_comics_metrics {
   comic              veve_comics       @relation(fields: [unique_cover_id], references: [unique_cover_id])
 }
 
+// TODO: Tags should be to comics not veve_comics
 model veve_comic_tags {
   tag_id            Int               @id @default(autoincrement())
   name              String
@@ -103,12 +104,4 @@ model veve_comic_tags {
   comic             veve_comics       @relation(fields: [unique_cover_id], references: [unique_cover_id])
 
   @@index([unique_cover_id], name: "idx_comic_tags")
-}
-
-model veve_comics_physical_sales {
-  unique_cover_id    String            @id
-  high              Float?             @default(0)
-  low               Float?             @default(0)
-  source            String?
-  comic             veve_comics        @relation(fields: [unique_cover_id], references: [unique_cover_id])
 }

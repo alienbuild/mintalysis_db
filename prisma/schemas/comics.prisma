@@ -1,0 +1,39 @@
+model comics {
+  id                          Int                        @id @default(autoincrement())
+  name                        String
+  description                 String?                    @db.Text
+  publisher_id                String?
+  comic_number                Int?
+  page_count                  Int?
+  start_year                  Int?
+  image_direction             String?
+  image_full_resolution_url   String?
+  image_high_resolution_url   String?
+  image_low_resolution_url    String?
+  image_med_resolution_url    String?
+  image_thumbnail             String?
+  minimum_age                 Int?
+  slug                        String?                    @unique
+  artists                     artists[]                  @relation("artistsTocomics")
+  characters                  characters[]               @relation("charactersTocomics")
+  writers                     writers[]                  @relation("comicsTowriters")
+  translations                comics_translations[]
+}
+
+model comics_translations {
+  id                     Int
+  name                   String?
+  description            String?           @db.Text
+  seo_description        String?           @db.Text
+  seo_keywords           String?           @db.Text
+  seo_title              String?           @db.Text
+  og_title               String?           @db.Text
+  og_description         String?           @db.Text
+  rarity_formatted       String?
+  edition_type_formatted String?
+  language               Language
+  comic                  comics       @relation(fields: [id], references: [id])
+
+  @@id([language, id])
+  @@index([language])
+}
