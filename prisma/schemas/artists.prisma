@@ -8,7 +8,7 @@ model artists {
   image       String?
   createdAt   DateTime                      @default(now())
   updatedAt   DateTime?                     @updatedAt
-  comics      comics                        @relation("artistsTocomics")
+  comics      comics[]                      @relation("artistsTocomics")
   veve_comics veve_comics[]                 @relation("artistsToveve_comics")
   translations artists_translations[]
 }
