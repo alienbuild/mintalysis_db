@@ -6,8 +6,9 @@ model writers {
   name         String
   slug         String?                      @unique
   image        String?
-  createdAt   DateTime                      @default(now())
-  updatedAt   DateTime?                     @updatedAt
+  createdAt    DateTime                     @default(now())
+  updatedAt    DateTime?                    @updatedAt
+  comics       comics[]                     @relation("comicsTowriters")
   veve_comics  veve_comics[]                @relation("veve_comicsTowriters")
   translations writers_translations[]
 }

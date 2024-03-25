@@ -8,6 +8,7 @@ model characters {
   image        String?
   createdAt    DateTime                     @default(now())
   updatedAt    DateTime?                    @updatedAt
+  comics       comics[]                     @relation("charactersTocomics")
   veve_comics  veve_comics[]                @relation("charactersToveve_comics")
   translations characters_translations[]
 }
@@ -29,7 +30,7 @@ model characters_translations {
   @@index([language])
 }
 
-
+// TODO: Link noteable character comics to comics instead of veve_comics
 model characters_grails {
   id              Int         @id @default(autoincrement())
   title           String
