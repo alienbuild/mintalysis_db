@@ -38,9 +38,10 @@ model veve_wallet_metrics {
   total_burned        Int?          @default(0)
   omi_balance         Float?        @default(0)
   total_mcp_pts       Float?        @default(0)
+  total_used_mcp_pts  Float?        @default(0)
   daily_mcp_pts       Float?        @default(0)
-  mcp_level           Int?          @default(0)
-  mcp_rank            String?       @default(0)
+  mcp_level           Int?
+  mcp_rank            String?
   created_at          DateTime      @default(now())
   updated_at          DateTime?     @updatedAt
   wallet              veve_wallets  @relation(fields: [wallet_id], references: [id])
