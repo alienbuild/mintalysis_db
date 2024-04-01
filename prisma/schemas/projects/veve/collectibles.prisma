@@ -39,7 +39,7 @@ model veve_collectibles {
   is_free                              Boolean?                         @default(false)
   total_store_allocation               Int?
   slug                                 String?                          @unique
-  unique_holders                       BigInt?
+  unique_holders                       Int?                             @default(0)
   first_public_mint                    Int?
   first_public_rarity_mint             Int?
   mcp_low_ed_limit                     Int?
@@ -47,7 +47,7 @@ model veve_collectibles {
   mcp_rarity_value                     Decimal?                         @db.Decimal(4, 2)
   mcp_total_value                      Decimal?                         @db.Decimal(5, 2)
   is_name_unique                       Boolean?                         @default(false)
-  total_burned                         Int?
+  total_burned                         Int?                             @default(0)
   mintalysis_note                      String?
   veve_held_edition_count              Int?
   licensor_held_edition_count          Int?

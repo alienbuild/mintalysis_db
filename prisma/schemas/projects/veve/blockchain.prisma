@@ -60,6 +60,7 @@ model veve_tokens {
   licensor_id        String?
   series_id          String?
   wallet_id          String?
+  wallet_last_update DateTime?           @db.DateTime(6)
   element_id         String?
   comic_image_url_id String?             @db.VarChar(50)
   mint_order         Int?
@@ -71,11 +72,12 @@ model veve_tokens {
   no_meta            Boolean?            @default(false)
   is_premint         Boolean?            @default(false)
   has_full_meta      Boolean?            @default(false)
+  transfer_count     Int?                @default(0)
   mintalysis_note    String?
   tag                String?
-  veve_brands        brands?        @relation(fields: [brand_id], references: [brand_id])
+  veve_brands        brands?             @relation(fields: [brand_id], references: [brand_id])
   veve_wallets       veve_wallets?       @relation(fields: [wallet_id], references: [id], map: "veve_tokens_ibfk_1")
-  veve_licensors     licensors?     @relation(fields: [licensor_id], references: [licensor_id])
+  veve_licensors     licensors?          @relation(fields: [licensor_id], references: [licensor_id])
   veve_series        veve_series?        @relation(fields: [series_id], references: [series_id])
   veveTokenCollectibles  veveTokenCollectible[]
   veveTokenComics        veveTokenComic[]
@@ -123,7 +125,6 @@ model veve_transfers {
   entry_price_new Float?
   timestamp_dt    DateTime? @db.DateTime(6)
   txn_type        String?
-  is_burned       Boolean?  @default(false)
   mintalysis_note String?
 
   @@index([createdAt])
@@ -144,24 +145,11 @@ model veve_mints {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime? @updatedAt
   timestamp_dt    DateTime? @db.DateTime(6)
-  is_burned       Boolean?  @default(false)
   is_redemption   Boolean?  @default(false)
-  transfer_count  Int?      @default(0)
   mintalysis_note String?
 
   @@index([createdAt])
   @@index([timestamp_dt])
-  @@index([wallet_id, token_id])
-  @@index([token_id])
-  @@index([wallet_id])
-}
-
-model veve_token_owner {
-  token_id        Int       @id
-  wallet_id       String?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime? @updatedAt
-
   @@index([wallet_id, token_id])
   @@index([token_id])
   @@index([wallet_id])

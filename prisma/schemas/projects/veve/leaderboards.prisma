@@ -16,41 +16,37 @@ model veve_leaderboard {
 }
 
 model veve_wallet_metrics {
-  id                  Int          @id @default(autoincrement())
-  datetime            DateTime?    @db.DateTime(0)
-  rank                Int?         @unique
-  prev_rank           Int?         @unique
-  rank_change         Int?
-  wallet_id           String       @unique
-  mint_count          Int?
-  purchase_count      Int?
-  sale_count          Int?
-  net_accum           Int?
-  transfer_count      Int?
-  total_tokens        Int?
-  total_comics        Int?
-  total_collectibles  Int?
-  total_artist_proofs Int?
-  total_C             Int?
-  total_UC            Int?
-  total_R             Int?
-  total_UR            Int?
-  total_SR            Int?
-  comic_set_count     Int?
-  unique_comic_sets   Int?
-  coll_set_count      Int?
-  unique_coll_sets    Int?
-  total_burned        Int?
-  omi_balance         Float?
-  total_mcp_pts       Float?
-  daily_mcp_pts       Float?
-  mcp_level           Int?
-  mcp_rank            String?
-  created_at          DateTime     @default(now())
-  updated_at          DateTime?    @updatedAt
-  wallet              veve_wallets @relation(fields: [wallet_id], references: [id])
+  wallet_id           String        @id
+  mint_count          Int?          @default(0)
+  purchase_count      Int?          @default(0)
+  sale_count          Int?          @default(0)
+  net_accum           Int?          @default(0)
+  transfer_count      Int?          @default(0)
+  total_tokens        Int?          @default(0)
+  total_comics        Int?          @default(0)
+  total_collectibles  Int?          @default(0)
+  total_artist_proofs Int?          @default(0)
+  total_C             Int?          @default(0)
+  total_UC            Int?          @default(0)
+  total_R             Int?          @default(0)
+  total_UR            Int?          @default(0)
+  total_SR            Int?          @default(0)
+  comic_set_count     Int?          @default(0)
+  unique_comic_sets   Int?          @default(0)
+  coll_set_count      Int?          @default(0)
+  unique_coll_sets    Int?          @default(0)
+  total_burned        Int?          @default(0)
+  omi_balance         Float?        @default(0)
+  total_mcp_pts       Float?        @default(0)
+  daily_mcp_pts       Float?        @default(0)
+  mcp_level           Int?          @default(0)
+  mcp_rank            String?       @default(0)
+  created_at          DateTime      @default(now())
+  updated_at          DateTime?     @updatedAt
+  wallet              veve_wallets  @relation(fields: [wallet_id], references: [id])
 
   @@index([wallet_id], map: "veve_wallet_metrics_wallet_id_fkey")
+  @@index([total_tokens], map: "veve_wallet_metrics_total_tokens_fkey")
 }
 
 model veve_wallet_token_counts {
@@ -58,6 +54,7 @@ model veve_wallet_token_counts {
     wallet_id          String
     collectible_id     String?
     unique_cover_id    String?
+    comic_image_url_id String?
     count              Int?
     created_at         DateTime     @default(now())
     updated_at         DateTime?    @updatedAt
